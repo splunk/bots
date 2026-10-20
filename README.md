@@ -20,6 +20,11 @@ Each BOTS version has its own page with download information, installation instr
 | BOTS v2 | [Version 2](botsv2/README.md) | See version page |
 | BOTS v3 | [Version 3](botsv3/README.md) | See version page |
 | BOTS v4 | [Version 4](botsv4/README.md) | See version page |
+| BOTS v5 | [Version 5](botsv5/README.md) | See version page |
+| BOTS v6 | [Version 6](botsv6/README.md) | See version page |
+| BOTS v7 | [Version 7](botsv7/README.md) | See version page |
+| BOTS v8 | [Version 8](botsv8/README.md) | See version page |
+| BOTS v9 | [Version 9](botsv9/README.md) | See version page |
 
 Additional versions can be added as their datasets are prepared for release. A link in this table does not imply that the corresponding dataset has already been published; check its version page for availability.
 
