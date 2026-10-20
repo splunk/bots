@@ -1,7 +1,7 @@
 
 
 # Boss of the SOC (BOTS) Dataset Version 1
-A sample security dataset and CTF platform for information security professionals, researchers, students, and enthusiasts. This page hosts information regarding the version 1 "Dataset." If you would like access to the [CTF Scoreboard](https://github.com/splunk/SA-ctf_scoreboard) please visit [the CTF Scoreboard github page.](https://github.com/splunk/SA-ctf_scoreboard)
+A sample security dataset and CTF platform for information security professionals, researchers, students, and enthusiasts. This page hosts information regarding the version 1 "Dataset." 
 
 ## Data Sourcetypes Included
 * WinEventLog:Application
@@ -40,30 +40,6 @@ Download the pre-indexed dataset and Q&A from the table below.
 | BOTS v1 | Full BOTS v1 dataset (6.1GB compressed) | Pre-indexed Splunk `.tgz` | [botsv1_data_set.tgz](https://s3.amazonaws.com/botsdataset/botsv1/splunk-pre-indexed/botsv1_data_set.tgz) |
 | BOTS v1 (Attack Only) | Much smaller version containing only attack data: "just the needles, no haystack" (135MB compressed) | Pre-indexed Splunk `.tgz` | [botsv1-attack-only.tgz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1-attack-only.tgz) |
 | BOTS v1 Q&A | Questions and answers for the BOTS v1 exercise | PDF | [Download BOTS v1 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv1/botsv1-qa.pdf) |
-
-The dataset requires the following software which is distributed and licensed separately
-and should be installed before using the dataset. The versions listed are
-those that were used to create the dataset. Different versions of the software
-may or may not work properly. If you are new to Splunk, follow [these instructions](http://docs.splunk.com/Documentation/Splunk/7.0.0/Installation/Whatsinthismanual) to install the free Splunk Enterprise trial and [these instructions](https://docs.splunk.com/Documentation/AddOns/released/Overview/Singleserverinstall) to install apps and add-ons. 
-
-| App / Add-on | Version | Download |
-| ----------- | ------- | -------- |
-| Splunk Enterprise | 6.5.2 | http://www.splunk.com
-| Fortinet Fortigate Add-on for Splunk | 1.3 |https://splunkbase.splunk.com/app/2846
-| Splunk Add-on for Tenable |5.0.0 | https://splunkbase.splunk.com/app/1710/ |Note v5.0.0 is no longer publicly available. Use v5.1.1 instead.
-| Splunk Stream Add-on (Note Stream 6.6.1 is no longer available. Use Version 7.1.1 instead.) | 6.6.1 |https://splunkbase.splunk.com/app/1809/ 
-| Splunk App for Stream (Note Stream 6.6.1 is no longer available. Use Version 7.1.1 instead.) | 6.6.1 | https://splunkbase.splunk.com/app/1809/
-| Splunk Add-on for Microsoft Windows | 4.8.3 | https://splunkbase.splunk.com/app/742/
-| TA-Suricata | 2.3 | https://splunkbase.splunk.com/app/2760/
-| Microsoft Sysmon Add-on | 3.2.3 | https://splunkbase.splunk.com/app/1914/
-| URL Toolbox | 1.6 |https://splunkbase.splunk.com/app/2734/
-
-After installing Splunk, the botsv1_data_set app, and the apps/add-ons listed in the table above you can begin searching the data with the following Splunk Search Processing Languange (SPL):
-
-	index=botsv1 earliest=0
-
-### JSON - Complete
-Download the JSON-formatted complete dataset from this location: [botsv1.json.gz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1.json.gz) (11.3GB compressed, ~120GB uncompressed)
 
 
 ### JSON - by Sourcetype
