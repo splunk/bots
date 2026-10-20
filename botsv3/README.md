@@ -3,12 +3,10 @@ A sample security dataset and CTF platform for information security professional
 
 ## Download
 
-| Dataset          | Description | Size | Format | MD5 |
-| ---------------- | ----------- | ---- | ------ | --- |
-| [BOTS V3 Dataset](https://botsdataset.s3.amazonaws.com/botsv3/botsv3_data_set.tgz) |  BOTSv3 dataset. | 320.1MB | Pre-indexed Splunk | d7ccca99a01cff070dff3c139cdc10eb |
-
-**Questions and answers:** [BOTS v3 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv3/botsv3-qa.pdf)
-
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v3 | Full BOTS v3 dataset (320.1MB, MD5 `d7ccca99a01cff070dff3c139cdc10eb`) | Pre-indexed Splunk `.tgz` | [botsv3_data_set.tgz](https://botsdataset.s3.amazonaws.com/botsv3/botsv3_data_set.tgz) |
+| BOTS v3 Q&A | Questions and answers for the BOTS v3 exercise | PDF | [Download BOTS v3 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv3/botsv3-qa.pdf) |
 
 ## Installation
 1. Download the dataset file indicated above and check the MD5 hash to ensure integrity.

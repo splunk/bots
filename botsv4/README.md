@@ -11,10 +11,9 @@ The pre-indexed BOTS v4 dataset will be hosted in an Amazon S3 bucket. The downl
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v4 | Original `main`, `notable`, and `risk` index buckets, restored as `botsv4-main`, `botsv4-notable`, and `botsv4-risk` | `.tar.gz` archive | [Download BOTS v4 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-recovery.tar.gz) |
+| BOTS v4 Q&A | Questions and answers for the BOTS v4 exercise | PDF | [Download BOTS v4 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-qa.pdf) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4-recovery.tar.gz`. The link, archive size, and checksum should be finalized after uploading to S3.
-
-**Questions and answers:** [BOTS v4 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-qa.pdf)
 
 ## Index naming
 

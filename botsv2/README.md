@@ -3,14 +3,13 @@ A sample security dataset and CTF platform for information security professional
 
 ## Download
 
-| Dataset          | Description | Size | Format | MD5 | 
-| ---------------- | ----------- | ---- | ------ | --- |
-| [BOTS V2 Dataset](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set.tgz) |  Full BOTSv2 dataset. | 16.4GB | Pre-indexed Splunk | fd2673726c96e97a39fc03119d6686c6 |
-| [BOTS V2 Dataset (Attack Only)](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set_attack_only.tgz) | BOTSv2 "attack-only" dataset. This dataset contains minimal non-attack-related (aka "clean") data. It's everything you need and nothing you don't! | 3.2GB | Pre-indexed Splunk | 6ea8f15cc4ccf6186db7a31415c09c58 | 
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v2 | Full BOTS v2 dataset (16.4GB, MD5 `fd2673726c96e97a39fc03119d6686c6`) | Pre-indexed Splunk `.tgz` | [botsv2_data_set.tgz](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set.tgz) |
+| BOTS v2 (Attack Only) | "Attack-only" dataset with minimal non-attack-related (aka "clean") data. It's everything you need and nothing you don't! (3.2GB, MD5 `6ea8f15cc4ccf6186db7a31415c09c58`) | Pre-indexed Splunk `.tgz` | [botsv2_data_set_attack_only.tgz](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set_attack_only.tgz) |
+| BOTS v2 Q&A | Questions and answers for the BOTS v2 exercise | PDF | [Download BOTS v2 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2-qa.pdf) |
 
 Note: Choose *either* the full dataset *or* the attack-only dataset.  You cannot install them both simultaneously. The BOTS V2 Dataset is a superset of the BOTS V2 Attack Only Dataset.
-
-**Questions and answers:** [BOTS v2 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2-qa.pdf)
 
 ## Installation
 1. Download the dataset file indicated above and check the MD5 hash to ensure integrity.
