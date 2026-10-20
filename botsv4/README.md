@@ -14,6 +14,8 @@ The pre-indexed BOTS v4 dataset will be hosted in an Amazon S3 bucket. The downl
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4-recovery.tar.gz`. The link, archive size, and checksum should be finalized after uploading to S3.
 
+**Questions and answers:** [BOTS v4 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-qa.pdf)
+
 ## Index naming
 
 The original BOTS v4 system stored the logical `main` index in the physical `botsv4/` directory, through `SA-bots/default/indexes.conf`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's `main`, `notable`, or `risk` indexes.

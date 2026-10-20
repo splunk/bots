@@ -37,6 +37,8 @@ Download the dataset from this location: [botsv1_data_set.tgz](https://s3.amazon
 
 Alternatively, this collection represents a much smaller version of the original dataset containing only attack data. In other words, "just the needles, no haystack." [botsv1-attack-only.tgz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1-attack-only.tgz)(135MB compressed)
 
+**Questions and answers:** [BOTS v1 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv1/botsv1-qa.pdf)
+
 The dataset requires the following software which is distributed and licensed separately
 and should be installed before using the dataset. The versions listed are
 those that were used to create the dataset. Different versions of the software

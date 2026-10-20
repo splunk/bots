@@ -7,6 +7,8 @@ A sample security dataset and CTF platform for information security professional
 | ---------------- | ----------- | ---- | ------ | --- |
 | [BOTS V3 Dataset](https://botsdataset.s3.amazonaws.com/botsv3/botsv3_data_set.tgz) |  BOTSv3 dataset. | 320.1MB | Pre-indexed Splunk | d7ccca99a01cff070dff3c139cdc10eb |
 
+**Questions and answers:** [BOTS v3 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv3/botsv3-qa.pdf)
+
 
 ## Installation
 1. Download the dataset file indicated above and check the MD5 hash to ensure integrity.
