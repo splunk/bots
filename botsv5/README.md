@@ -6,7 +6,7 @@ BOTS v5 consists of **six separate scenario datasets**. Each scenario is distrib
 
 ## Scenarios
 
-Each scenario has its own README with download links, index definitions, restore steps, and sourcetype inventory. Scenarios are independent: restore any one, or all six.
+Each scenario has its own README with download links, index definitions, and restore steps. Scenarios are independent: restore any one, or all six.
 
 | Scenario | Title | Index prefix | Restore guide |
 | --- | --- | --- | --- |

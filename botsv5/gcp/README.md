@@ -175,13 +175,3 @@ done
 ```
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
-
-## Data sourcetypes included
-
-TODO: **N sourcetypes** reported by the source Splunk instance for `index=botsv5-gcp-main`. Counts reflect the supplied inventory and may differ on another restoration.
-
-| Sourcetype | Events |
-| --- | ---: |
-| `TODO` | 0 |
-
-**Total events in supplied inventory:** TODO.
