@@ -17,7 +17,7 @@ The pre-indexed BOTS v5 K8S dataset will be hosted in an Amazon S3 bucket. The d
 | BOTS v5 K8S | Pre-indexed buckets, restored as `botsv5-k8s-main` | `.tgz` archive | [Download BOTS v5 K8S dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s.tgz) |
 | BOTS v5 K8S Q&A | Questions and answers for the BOTS v5 K8S exercise | PDF | [Download BOTS v5 K8S Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-k8s.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-k8s.tgz`. The archive is about 191 MB. Its SHA-256 checksum is `ebcdcbfe51a6ac6c44a94f8abf563146be70520c596039b83ec336c18d5ac59b`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
@@ -54,7 +54,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`; the archive should contain 2 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`; the archive should contain 2 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+sha256sum "$ARCHIVE"   # or: shasum -a 256 "$ARCHIVE" on macOS
+# expected: ebcdcbfe51a6ac6c44a94f8abf563146be70520c596039b83ec336c18d5ac59b
+```
 
 ## 2. Configure dedicated indexes
 
