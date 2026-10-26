@@ -1,6 +1,6 @@
 # BOTS v5 RWI: Pre-indexed Dataset Recovery
 
-This guide restores the BOTS v5 RWI scenario into 3 dedicated indexes on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
+This guide restores the BOTS v5 RWI scenario into a dedicated index on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
@@ -10,24 +10,24 @@ The pre-indexed BOTS v5 RWI dataset will be hosted in an Amazon S3 bucket. The d
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 RWI | Pre-indexed buckets, restored as `botsv5-rwi-main`, `botsv5-rwi-notable`, `botsv5-rwi-risk` | `.tgz` archive | [Download BOTS v5 RWI dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-rwi.tgz) |
+| BOTS v5 RWI | Pre-indexed buckets, restored as `botsv5-rwi-main` | `.tgz` archive | [Download BOTS v5 RWI dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-rwi.tgz) |
 | BOTS v5 RWI Q&A | Questions and answers for the BOTS v5 RWI exercise | PDF | [Download BOTS v5 RWI Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-rwi-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-rwi.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-rwi.tgz`. The archive is about 1.7 GB (about 2.7 GB extracted). Its SHA-256 checksum is `bc27c1a3093994757e34a982be686e2c4cd73a1266e3a842c09d24311d97cd11`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
 This restoration intentionally uses new logical index names to avoid interfering with an existing installation's indexes.
 
-| Archive directory | Restored logical index | Destination directory |
-| --- | --- | --- |
-| `TODO/` | `botsv5-rwi-main` | `$SPLUNK_DB/botsv5-rwi-main/` |
-| `notabledb/` | `botsv5-rwi-notable` | `$SPLUNK_DB/botsv5-rwi-notable/` |
-| `riskdb/` | `botsv5-rwi-risk` | `$SPLUNK_DB/botsv5-rwi-risk/` |
+| Archive directory | Restored logical index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `defaultdb/` | `botsv5-rwi-main` | `$SPLUNK_DB/botsv5-rwi-main/` | 10 |
+
+The archive contains only the `defaultdb` index. There are no notable, risk, or additional indexes for this scenario.
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+The archive's `datamodel_summary/` directory contains acceleration summaries and is not imported by this procedure.
 
 ## Prerequisites
 
@@ -50,7 +50,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`; the archive should contain 10 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: bc27c1a3093994757e34a982be686e2c4cd73a1266e3a842c09d24311d97cd11
+```
 
 ## 2. Configure dedicated indexes
 
@@ -63,20 +68,6 @@ coldPath = $SPLUNK_DB/botsv5-rwi-main/colddb
 thawedPath = $SPLUNK_DB/botsv5-rwi-main/thaweddb
 frozenTimePeriodInSecs = 1893456000
 maxTotalDataSizeMB = 102400
-
-[botsv5-rwi-notable]
-homePath = $SPLUNK_DB/botsv5-rwi-notable/db
-coldPath = $SPLUNK_DB/botsv5-rwi-notable/colddb
-thawedPath = $SPLUNK_DB/botsv5-rwi-notable/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
-
-[botsv5-rwi-risk]
-homePath = $SPLUNK_DB/botsv5-rwi-risk/db
-coldPath = $SPLUNK_DB/botsv5-rwi-risk/colddb
-thawedPath = $SPLUNK_DB/botsv5-rwi-risk/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
 ```
 
 The retention period is approximately 60 years. The 100 GiB per-index size limit is an example, **not** a reservation of disk space. Adjust it for your environment. Size limits can freeze buckets even when age-based retention is long. Keep backups.
@@ -84,7 +75,7 @@ The retention period is approximately 60 years. The 100 GiB per-index size limit
 Check the effective configuration without starting Splunk:
 
 ```bash
-for idx in botsv5-rwi-main botsv5-rwi-notable botsv5-rwi-risk; do
+for idx in botsv5-rwi-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
@@ -98,7 +89,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-rwi-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-rwi-stage
-sudo find /tmp/botsv5-rwi-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-rwi-stage -name journal.gz -type f | wc -l   # expect 10
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -110,7 +101,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-rwi-main' 'notabledb:botsv5-rwi-notable' 'riskdb:botsv5-rwi-risk'; do
+for mapping in 'defaultdb:botsv5-rwi-main'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -134,12 +125,12 @@ done
 Ensure the copied directories and files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
 
 ```bash
-for idx in botsv5-rwi-main botsv5-rwi-notable botsv5-rwi-risk; do
+for idx in botsv5-rwi-main; do
   sudo chown -R splunk:splunk "$SPLUNK_DB/$idx"
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+The archive's `datamodel_summary/` directory is intentionally not copied. Do not import it as event buckets.
 
 ## 5. Start Splunk and validate
 
@@ -152,11 +143,6 @@ Use an all-time search because the events are historical:
 ```spl
 | tstats count WHERE index=botsv5-rwi-main earliest=0 BY sourcetype
 | sort -count
-```
-
-```spl
-| tstats count WHERE index=botsv5-rwi-* earliest=0 BY index
-| sort index
 ```
 
 Inspect registered buckets:
@@ -178,7 +164,7 @@ Do not delete the original archive or repeatedly restart against the only copy o
 ## 6. Verify retention
 
 ```bash
-for idx in botsv5-rwi-main botsv5-rwi-notable botsv5-rwi-risk; do
+for idx in botsv5-rwi-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
