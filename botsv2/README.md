@@ -3,25 +3,154 @@ A sample security dataset and CTF platform for information security professional
 
 ## Download
 
+The download URLs below are **placeholders** and must be updated before publication.
+
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v2 | Full BOTS v2 dataset (16.4GB, MD5 `fd2673726c96e97a39fc03119d6686c6`) | Pre-indexed Splunk `.tgz` | [botsv2_data_set.tgz](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set.tgz) |
-| BOTS v2 (Attack Only) | "Attack-only" dataset with minimal non-attack-related (aka "clean") data. It's everything you need and nothing you don't! (3.2GB, MD5 `6ea8f15cc4ccf6186db7a31415c09c58`) | Pre-indexed Splunk `.tgz` | [botsv2_data_set_attack_only.tgz](https://s3.amazonaws.com/botsdataset/botsv2/botsv2_data_set_attack_only.tgz) |
+| BOTS v2 | Full BOTS v2 dataset (17.6GB compressed, SHA-256 `5f8141ef9bc91741f4f54da1a0a5d01c8fc91eab5a9d26f7ebe020900b3fa083`) | Pre-indexed Splunk `.tgz` | [Download BOTS v2 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2.tgz) |
 | BOTS v2 Q&A | Questions and answers for the BOTS v2 exercise | PDF | [Download BOTS v2 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2-qa.pdf) |
 
-Note: Choose *either* the full dataset *or* the attack-only dataset.  You cannot install them both simultaneously. The BOTS V2 Dataset is a superset of the BOTS V2 Attack Only Dataset.
+## Restoring the dataset into a dedicated index
 
-## Installation
-1. Download the dataset file indicated above and check the MD5 hash to ensure integrity.
-2. Install Splunk Enterprise and the apps/add-ons listed in the *Required Software* section below. It is important to match the specific version of each app and add-on.
-3. Unzip/untar the downloaded file into $SPLUNK_HOME/etc/apps
-4. Restart Splunk
-5. The BOTS v2 data will be available by searching: 
+This section restores the pre-indexed BOTS v2 buckets into a dedicated `botsv2-main` index on Splunk Enterprise 10.x, so they can sit alongside other BOTS versions on one server. The archive contains pre-indexed buckets, not raw event files or a Splunk app.
 
+> Compatibility: BOTS v2 was built with Splunk Enterprise 7.2.1. Test on a disposable Splunk 10.x instance first. Bucket compatibility across these versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
+
+### Index naming
+
+| Archive directory | Restored index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `botsv2/` | `botsv2-main` | `$SPLUNK_DB/botsv2-main/` | 57 |
+
+The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`. The archive's `summary/` directory contains only manifest files and is not used.
+
+### Prerequisites
+
+- Splunk Enterprise 10.x on a supported Linux host, preferably an isolated test system.
+- Shell access, enough disk space for the extracted archive (about 23 GB) plus the index, and a backup of the destination.
+- The ability to stop Splunk before copying index buckets.
+- The apps and add-ons listed in *Required Software* below are only needed for field extractions, not to search the raw events.
+
+The commands assume `/opt/splunk`; change `SPLUNK_HOME` if needed. On indexer clusters, deploy index definitions through the cluster manager instead of editing individual peers.
+
+### 1. Verify the archive
+
+```bash
+export SPLUNK_HOME=/opt/splunk
+export SPLUNK_DB="$SPLUNK_HOME/var/lib/splunk"
+export ARCHIVE=/tmp/botsv2.tgz
+
+gzip -t "$ARCHIVE"
+tar -tzf "$ARCHIVE" | head -40
+tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$' | wc -l   # expect 57
+sha256sum "$ARCHIVE"   # or: shasum -a 256 "$ARCHIVE"
+# expected: 5f8141ef9bc91741f4f54da1a0a5d01c8fc91eab5a9d26f7ebe020900b3fa083
 ```
-index=botsv2 earliest=0
+
+You should see paths like `botsv2/db/db_...`. If the layout is different, adjust the staging paths below.
+
+### 2. Configure the index
+
+Add this stanza to `$SPLUNK_HOME/etc/system/local/indexes.conf`, merging with any existing contents rather than replacing the file:
+
+```ini
+[botsv2-main]
+homePath = $SPLUNK_DB/botsv2-main/db
+coldPath = $SPLUNK_DB/botsv2-main/colddb
+thawedPath = $SPLUNK_DB/botsv2-main/thaweddb
+frozenTimePeriodInSecs = 1893456000
+maxTotalDataSizeMB = 102400
 ```
-6. Note that because the data is distributed in a pre-indexed format, there are no volume-based licensing limits to be concerned with. 
+
+The retention period is approximately 60 years. The 100 GiB size limit is an example, **not** a reservation of disk space. Adjust it for your environment. Size limits can freeze buckets even when age-based retention is long.
+
+Check the effective configuration without starting Splunk:
+
+```bash
+"$SPLUNK_HOME/bin/splunk" btool indexes list botsv2-main --debug | \
+  grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
+```
+
+### 3. Stop Splunk and stage the archive
+
+```bash
+sudo "$SPLUNK_HOME/bin/splunk" stop
+ps -ef | grep '[s]plunkd'
+
+mkdir -p /tmp/botsv2-stage
+tar -xzf "$ARCHIVE" -C /tmp/botsv2-stage
+find /tmp/botsv2-stage -name journal.gz -type f | wc -l   # expect 57
+```
+
+Do not extract directly over an existing index.
+
+### 4. Copy buckets into the new index
+
+This copies only the bucket directories (`db_*`), and **refuses to copy into a nonempty destination**, rather than risking a bucket collision or accidental merge.
+
+```bash
+set -e
+
+src_root=/tmp/botsv2-stage/botsv2
+
+for tier in db colddb; do
+  src="$src_root/$tier"
+  dst="$SPLUNK_DB/botsv2-main/$tier"
+  [ -d "$src" ] || continue
+
+  sudo mkdir -p "$dst"
+  if [ -n "$(sudo find "$dst" -mindepth 1 -maxdepth 1 -print -quit)" ]; then
+    echo "ERROR: destination is not empty: $dst" >&2
+    exit 1
+  fi
+  sudo find "$src" -mindepth 1 -maxdepth 1 -type d -name 'db_*' -exec cp -a {} "$dst/" \;
+done
+
+sudo mkdir -p "$SPLUNK_DB/botsv2-main/thaweddb"
+```
+
+Make sure the copied files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
+
+```bash
+sudo chown -R splunk:splunk "$SPLUNK_DB/botsv2-main"
+```
+
+### 5. Start Splunk and validate
+
+```bash
+sudo "$SPLUNK_HOME/bin/splunk" start
+```
+
+Use an all-time search because the events are historical:
+
+```spl
+| tstats count WHERE index=botsv2-main earliest=0 BY sourcetype
+| sort -count
+```
+
+Inspect registered buckets:
+
+```spl
+| dbinspect index=botsv2-main
+| table bucketId state eventCount path
+```
+
+If data does not appear, check the logs before attempting another import:
+
+```bash
+grep -Ei 'bucket|tsidx|journal|corrupt|incompatible|freeze|frozen' \
+  "$SPLUNK_HOME/var/log/splunk/splunkd.log" | tail -100
+```
+
+Do not delete the original archive or repeatedly restart against the only copy of the buckets. If Splunk 10.x rejects the files, an intermediate compatible Splunk version or another supported migration method may be necessary.
+
+### 6. Verify retention
+
+Re-run the `btool` command from step 2, and check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete. Once everything searches correctly, you can search the data with:
+
+```spl
+index=botsv2-main earliest=0
+```
 
 ## Data Sourcetypes included
 * access_combined
@@ -130,8 +259,8 @@ index=botsv2 earliest=0
 * xmlwineventlog:microsoft-windows-sysmon/operational
 
 ## Required Software
-The dataset requires the following software which is distributed and licensed separately
-and should be installed before using the dataset. The versions listed are
+The following software is distributed and licensed separately. It is only needed for
+field extractions and the original dashboards and content, not to search the raw events. The versions listed are
 those that were used to create the dataset. Different versions of the software
 may or may not work properly. If you are new to Splunk, follow [these instructions](http://docs.splunk.com/Documentation/Splunk/latest/Installation/Whatsinthismanual) to install the free Splunk Enterprise trial and [these instructions](https://docs.splunk.com/Documentation/AddOns/released/Overview/Singleserverinstall) to install apps and add-ons. 
 
