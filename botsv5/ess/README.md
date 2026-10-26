@@ -13,22 +13,22 @@ The pre-indexed BOTS v5 ESS dataset will be hosted in an Amazon S3 bucket. The d
 | BOTS v5 ESS | Pre-indexed buckets, restored as `botsv5-ess-main`, `botsv5-ess-ar`, `botsv5-ess-notable`, `botsv5-ess-risk` | `.tgz` archive | [Download BOTS v5 ESS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess.tgz) |
 | BOTS v5 ESS Q&A | Questions and answers for the BOTS v5 ESS exercise | PDF | [Download BOTS v5 ESS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-ess.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-ess.tgz`. The archive is about 3.4 GB (about 5.6 GB extracted). Its SHA-256 checksum is `051569b944564b78bed3500fe82d65c77ce33fcabfb96b18399ebfb9cbcda224`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
 This restoration intentionally uses new logical index names to avoid interfering with an existing installation's indexes.
 
-| Archive directory | Restored logical index | Destination directory |
-| --- | --- | --- |
-| `TODO/` | `botsv5-ess-main` | `$SPLUNK_DB/botsv5-ess-main/` |
-| `TODO-ar/` | `botsv5-ess-ar` | `$SPLUNK_DB/botsv5-ess-ar/` |
-| `notabledb/` | `botsv5-ess-notable` | `$SPLUNK_DB/botsv5-ess-notable/` |
-| `riskdb/` | `botsv5-ess-risk` | `$SPLUNK_DB/botsv5-ess-risk/` |
+| Archive directory | Restored logical index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `defaultdb/` | `botsv5-ess-main` | `$SPLUNK_DB/botsv5-ess-main/` | 33 |
+| `botsv_ar/` | `botsv5-ess-ar` | `$SPLUNK_DB/botsv5-ess-ar/` | 5 |
+| `notabledb/` | `botsv5-ess-notable` | `$SPLUNK_DB/botsv5-ess-notable/` | 4 |
+| `riskdb/` | `botsv5-ess-risk` | `$SPLUNK_DB/botsv5-ess-risk/` | 3 |
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+The archive's `datamodel_summary/` directories (under `defaultdb/` and `botsv_ar/`) contain acceleration summaries and are not imported by this procedure.
 
 ## Prerequisites
 
@@ -51,7 +51,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `TODO-ar/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`, `botsv_ar/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. The archive should contain 45 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: 051569b944564b78bed3500fe82d65c77ce33fcabfb96b18399ebfb9cbcda224
+```
 
 ## 2. Configure dedicated indexes
 
@@ -106,7 +111,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-ess-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-ess-stage
-sudo find /tmp/botsv5-ess-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-ess-stage -name journal.gz -type f | wc -l   # expect 45
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -118,7 +123,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-ess-main' 'TODO-ar:botsv5-ess-ar' 'notabledb:botsv5-ess-notable' 'riskdb:botsv5-ess-risk'; do
+for mapping in 'defaultdb:botsv5-ess-main' 'botsv_ar:botsv5-ess-ar' 'notabledb:botsv5-ess-notable' 'riskdb:botsv5-ess-risk'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -147,7 +152,7 @@ for idx in botsv5-ess-main botsv5-ess-ar botsv5-ess-notable botsv5-ess-risk; do
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+The archive's `datamodel_summary/` directories are intentionally not copied. Do not import them as event buckets.
 
 ## 5. Start Splunk and validate
 
