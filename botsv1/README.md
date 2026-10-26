@@ -38,7 +38,6 @@ Download the pre-indexed dataset and Q&A from the table below.
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v1 | Full BOTS v1 dataset (6.1GB compressed) | Pre-indexed Splunk `.tgz` | [botsv1_data_set.tgz](https://s3.amazonaws.com/botsdataset/botsv1/splunk-pre-indexed/botsv1_data_set.tgz) |
-| BOTS v1 (Attack Only) | Much smaller version containing only attack data: "just the needles, no haystack" (135MB compressed) | Pre-indexed Splunk `.tgz` | [botsv1-attack-only.tgz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1-attack-only.tgz) |
 | BOTS v1 Q&A | Questions and answers for the BOTS v1 exercise | PDF | [Download BOTS v1 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv1/botsv1-qa.pdf) |
 
 
@@ -56,7 +55,7 @@ If you prefer the original method, you can instead extract the archive into `$SP
 | --- | --- | --- | --- |
 | `botsv1` | `botsv1_data_set/var/lib/splunk/botsv1/` | `botsv1-main` | `$SPLUNK_DB/botsv1-main/` |
 
-The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`. The app's `default/indexes.conf`, dashboards, and `datamodel_summary` are not used. The attack-only archive should have the same layout; confirm it in step 1.
+The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`. The app's `default/indexes.conf`, dashboards, and `datamodel_summary` are not used.
 
 ### Prerequisites
 
