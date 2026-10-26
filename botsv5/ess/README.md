@@ -1,6 +1,6 @@
 # BOTS v5 ESS: Pre-indexed Dataset Recovery
 
-This guide restores the BOTS v5 ESS scenario into 3 dedicated indexes on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
+This guide restores the BOTS v5 ESS scenario into 4 dedicated indexes on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
@@ -10,7 +10,7 @@ The pre-indexed BOTS v5 ESS dataset will be hosted in an Amazon S3 bucket. The d
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 ESS | Pre-indexed buckets, restored as `botsv5-ess-main`, `botsv5-ess-notable`, `botsv5-ess-risk` | `.tgz` archive | [Download BOTS v5 ESS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess.tgz) |
+| BOTS v5 ESS | Pre-indexed buckets, restored as `botsv5-ess-main`, `botsv5-ess-ar`, `botsv5-ess-notable`, `botsv5-ess-risk` | `.tgz` archive | [Download BOTS v5 ESS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess.tgz) |
 | BOTS v5 ESS Q&A | Questions and answers for the BOTS v5 ESS exercise | PDF | [Download BOTS v5 ESS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess-qa.pdf) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-ess.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
@@ -22,6 +22,7 @@ This restoration intentionally uses new logical index names to avoid interfering
 | Archive directory | Restored logical index | Destination directory |
 | --- | --- | --- |
 | `TODO/` | `botsv5-ess-main` | `$SPLUNK_DB/botsv5-ess-main/` |
+| `TODO-ar/` | `botsv5-ess-ar` | `$SPLUNK_DB/botsv5-ess-ar/` |
 | `notabledb/` | `botsv5-ess-notable` | `$SPLUNK_DB/botsv5-ess-notable/` |
 | `riskdb/` | `botsv5-ess-risk` | `$SPLUNK_DB/botsv5-ess-risk/` |
 
@@ -50,7 +51,7 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `TODO/db/db_...`, `TODO-ar/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
 
 ## 2. Configure dedicated indexes
 
@@ -61,6 +62,13 @@ Add these stanzas to `$SPLUNK_HOME/etc/system/local/indexes.conf`, merging with 
 homePath = $SPLUNK_DB/botsv5-ess-main/db
 coldPath = $SPLUNK_DB/botsv5-ess-main/colddb
 thawedPath = $SPLUNK_DB/botsv5-ess-main/thaweddb
+frozenTimePeriodInSecs = 1893456000
+maxTotalDataSizeMB = 102400
+
+[botsv5-ess-ar]
+homePath = $SPLUNK_DB/botsv5-ess-ar/db
+coldPath = $SPLUNK_DB/botsv5-ess-ar/colddb
+thawedPath = $SPLUNK_DB/botsv5-ess-ar/thaweddb
 frozenTimePeriodInSecs = 1893456000
 maxTotalDataSizeMB = 102400
 
@@ -84,7 +92,7 @@ The retention period is approximately 60 years. The 100 GiB per-index size limit
 Check the effective configuration without starting Splunk:
 
 ```bash
-for idx in botsv5-ess-main botsv5-ess-notable botsv5-ess-risk; do
+for idx in botsv5-ess-main botsv5-ess-ar botsv5-ess-notable botsv5-ess-risk; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
@@ -110,7 +118,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-ess-main' 'notabledb:botsv5-ess-notable' 'riskdb:botsv5-ess-risk'; do
+for mapping in 'TODO:botsv5-ess-main' 'TODO-ar:botsv5-ess-ar' 'notabledb:botsv5-ess-notable' 'riskdb:botsv5-ess-risk'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -134,7 +142,7 @@ done
 Ensure the copied directories and files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
 
 ```bash
-for idx in botsv5-ess-main botsv5-ess-notable botsv5-ess-risk; do
+for idx in botsv5-ess-main botsv5-ess-ar botsv5-ess-notable botsv5-ess-risk; do
   sudo chown -R splunk:splunk "$SPLUNK_DB/$idx"
 done
 ```
@@ -178,7 +186,7 @@ Do not delete the original archive or repeatedly restart against the only copy o
 ## 6. Verify retention
 
 ```bash
-for idx in botsv5-ess-main botsv5-ess-notable botsv5-ess-risk; do
+for idx in botsv5-ess-main botsv5-ess-ar botsv5-ess-notable botsv5-ess-risk; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
