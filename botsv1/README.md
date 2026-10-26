@@ -38,13 +38,13 @@ Download the pre-indexed dataset and Q&A from the table below.
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v1 | Full BOTS v1 dataset (6.1GB compressed) | Pre-indexed Splunk `.tgz` | [botsv1_data_set.tgz](https://s3.amazonaws.com/botsdataset/botsv1/splunk-pre-indexed/botsv1_data_set.tgz) |
-| BOTS v1 (Attack Only) | Much smaller version containing only attack data: "just the needles, no haystack" (135MB compressed) | Pre-indexed Splunk `.tgz` | [botsv1-attack-only.tgz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1-attack-only.tgz) |
+| BOTS v1 (Attack Only) | Much smaller version containing only attack data: "just the needles, no haystack" (134MB compressed) | Pre-indexed Splunk `.tgz` | [botsv1-attack-only.tgz](https://s3.amazonaws.com/botsdataset/botsv1/botsv1-attack-only.tgz) |
 | BOTS v1 Q&A | Questions and answers for the BOTS v1 exercise | PDF | [Download BOTS v1 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv1/botsv1-qa.pdf) |
 
 
 ## Restoring the dataset into a dedicated index
 
-This section restores the pre-indexed BOTS v1 buckets into a dedicated `botsv1-main` index on Splunk Enterprise 10.x, so they can sit alongside other BOTS versions on one server (see the main [README](../README.md)). The archive is a Splunk app named `botsv1_data_set` that contains pre-indexed buckets, not raw event files.
+This section restores the pre-indexed BOTS v1 buckets into a dedicated `botsv1-main` index on Splunk Enterprise 10.x, so they can sit alongside other BOTS versions on one server (see the main [README](../README.md)). The full dataset archive is a Splunk app named `botsv1_data_set` that contains pre-indexed buckets, not raw event files. The attack-only archive contains just the `botsv1` index directory, without the app wrapper.
 
 > Compatibility: BOTS v1 was built with Splunk Enterprise 6.5.2. Test on a disposable Splunk 10.x instance first. Bucket compatibility across these versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
@@ -54,9 +54,10 @@ If you prefer the original method, you can instead extract the archive into `$SP
 
 | Source index | Archive directory | Restored index | Destination directory |
 | --- | --- | --- | --- |
-| `botsv1` | `botsv1_data_set/var/lib/splunk/botsv1/` | `botsv1-main` | `$SPLUNK_DB/botsv1-main/` |
+| `botsv1` (full dataset) | `botsv1_data_set/var/lib/splunk/botsv1/` | `botsv1-main` | `$SPLUNK_DB/botsv1-main/` |
+| `botsv1` (attack only) | `botsv1/` | `botsv1-main` | `$SPLUNK_DB/botsv1-main/` |
 
-The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`. The app's `default/indexes.conf`, dashboards, and `datamodel_summary` are not used. The attack-only archive should have the same layout; confirm it in step 1.
+The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`. The app's `default/indexes.conf`, dashboards, and `datamodel_summary` are not used. The attack-only archive's `datamodel_summary/` directory is empty.
 
 ### Prerequisites
 
@@ -72,14 +73,21 @@ The commands assume `/opt/splunk`; change `SPLUNK_HOME` if needed. On indexer cl
 ```bash
 export SPLUNK_HOME=/opt/splunk
 export SPLUNK_DB="$SPLUNK_HOME/var/lib/splunk"
-export ARCHIVE=/tmp/botsv1_data_set.tgz
+export ARCHIVE=/tmp/botsv1_data_set.tgz   # or /tmp/botsv1-attack-only.tgz
 
 gzip -t "$ARCHIVE"
 tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$' | head
 ```
 
-You should see paths like `botsv1_data_set/var/lib/splunk/botsv1/db/db_...`. If the layout is different, adjust the staging paths below.
+For the full dataset, you should see paths like `botsv1_data_set/var/lib/splunk/botsv1/db/db_...`. For the attack-only archive, you should see paths like `botsv1/db/db_...`, and exactly 2 `journal.gz` files. If the layout is different, adjust the staging paths below.
+
+The SHA-256 checksum of the attack-only archive is:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected (attack-only): 3b7a3c2c0442acf889d9be71feba3fffd937eb55138283988033327e49dac838
+```
 
 ### 2. Configure the index
 
@@ -123,7 +131,9 @@ This copies only the bucket directories (`db_*`), and **refuses to copy into a n
 ```bash
 set -e
 
+# full dataset (app layout) or attack-only (index directory only)
 src_root=/tmp/botsv1-stage/botsv1_data_set/var/lib/splunk/botsv1
+[ -d "$src_root" ] || src_root=/tmp/botsv1-stage/botsv1
 
 for tier in db colddb; do
   src="$src_root/$tier"
