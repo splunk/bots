@@ -196,6 +196,35 @@ done
 
 The archive's `summary/` and `datamodel_summary/` directories are intentionally not copied. Do not import them as event buckets.
 
+### Thaw the frozen buckets
+
+The `aws_topology_history` (210 buckets) and `aws_vpc_flow_logs` (9 buckets) directories keep their buckets in `frozendb/`, not `db/`. The copy loop above does not touch `frozendb/`, so without this step those two indexes restore empty. Frozen buckets contain only raw data, so they are copied into each index's `thaweddb/` and rebuilt. Splunk must still be stopped.
+
+```bash
+set -e
+
+for mapping in 'aws_topology_history:botsv5-aws-topology_history' 'aws_vpc_flow_logs:botsv5-aws-vpc_flow_logs'; do
+  srcname=${mapping%%:*}
+  dstname=${mapping#*:}
+  src="/tmp/botsv5-aws-stage/$srcname/frozendb"
+  dst="$SPLUNK_DB/$dstname/thaweddb"
+
+  sudo mkdir -p "$dst"
+  if [ -n "$(sudo find "$dst" -mindepth 1 -maxdepth 1 -print -quit)" ]; then
+    echo "ERROR: destination is not empty: $dst" >&2
+    exit 1
+  fi
+  sudo cp -a "$src/." "$dst/"
+  sudo chown -R splunk:splunk "$dst"
+
+  for bucket in "$dst"/db_*; do
+    sudo -u splunk "$SPLUNK_HOME/bin/splunk" rebuild "$bucket" "$dstname"
+  done
+done
+```
+
+Run the rebuild as the Splunk service account (`splunk` here) so the generated index files have the right ownership. Rebuilding 219 buckets can take a while. Thawed buckets are not subject to `frozenTimePeriodInSecs` or `maxTotalDataSizeMB`, so they are not frozen again.
+
 ## 5. Start Splunk and validate
 
 ```bash
