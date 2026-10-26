@@ -13,21 +13,21 @@ The pre-indexed BOTS v5 APT dataset will be hosted in an Amazon S3 bucket. The d
 | BOTS v5 APT | Pre-indexed buckets, restored as `botsv5-apt-main`, `botsv5-apt-notable`, `botsv5-apt-risk` | `.tgz` archive | [Download BOTS v5 APT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-apt.tgz) |
 | BOTS v5 APT Q&A | Questions and answers for the BOTS v5 APT exercise | PDF | [Download BOTS v5 APT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-apt-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-apt.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-apt.tgz`. The archive is about 974 MB. Its SHA-256 checksum is `2ef05ceea74edc4de21a7ead0ad816187d541629474306186f55c603dec19b12`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
 This restoration intentionally uses new logical index names to avoid interfering with an existing installation's indexes.
 
-| Archive directory | Restored logical index | Destination directory |
-| --- | --- | --- |
-| `TODO/` | `botsv5-apt-main` | `$SPLUNK_DB/botsv5-apt-main/` |
-| `notabledb/` | `botsv5-apt-notable` | `$SPLUNK_DB/botsv5-apt-notable/` |
-| `riskdb/` | `botsv5-apt-risk` | `$SPLUNK_DB/botsv5-apt-risk/` |
+| Archive directory | Restored logical index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `defaultdb/` | `botsv5-apt-main` | `$SPLUNK_DB/botsv5-apt-main/` | 13 |
+| `notabledb/` | `botsv5-apt-notable` | `$SPLUNK_DB/botsv5-apt-notable/` | 3 |
+| `riskdb/` | `botsv5-apt-risk` | `$SPLUNK_DB/botsv5-apt-risk/` | 2 |
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+The archive's `datamodel_summary/` directory is not imported by this procedure.
 
 ## Prerequisites
 
@@ -50,7 +50,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 18 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: 2ef05ceea74edc4de21a7ead0ad816187d541629474306186f55c603dec19b12
+```
 
 ## 2. Configure dedicated indexes
 
@@ -98,7 +103,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-apt-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-apt-stage
-sudo find /tmp/botsv5-apt-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-apt-stage -name journal.gz -type f | wc -l   # expect 18
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -110,7 +115,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-apt-main' 'notabledb:botsv5-apt-notable' 'riskdb:botsv5-apt-risk'; do
+for mapping in 'defaultdb:botsv5-apt-main' 'notabledb:botsv5-apt-notable' 'riskdb:botsv5-apt-risk'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -139,7 +144,7 @@ for idx in botsv5-apt-main botsv5-apt-notable botsv5-apt-risk; do
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+The archive's `datamodel_summary/` directory is intentionally not copied. Do not import it as event buckets.
 
 ## 5. Start Splunk and validate
 
