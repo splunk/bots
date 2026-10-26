@@ -25,13 +25,13 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Buckets |
 | --- | --- | --- | ---: |
-| `defaultdb/` | `botsv5-k8s-main` | `$SPLUNK_DB/botsv5-k8s-main/` | TODO |
+| `defaultdb/` | `botsv5-k8s-main` | `$SPLUNK_DB/botsv5-k8s-main/` | 2 |
 
 The archive contains only the `defaultdb` index. There are no notable, risk, or additional indexes for this scenario.
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-Any `datamodel_summary/` directory in the archive contains acceleration summaries and is not imported by this procedure. **TODO: record the recovered bucket count.**
+The archive's `datamodel_summary/` directory is empty and is not imported by this procedure.
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`; the archive should contain 2 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
 
 ## 2. Configure dedicated indexes
 
@@ -88,7 +88,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-k8s-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-k8s-stage
-sudo find /tmp/botsv5-k8s-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-k8s-stage -name journal.gz -type f | wc -l   # expect 2
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -129,7 +129,7 @@ for idx in botsv5-k8s-main; do
 done
 ```
 
-Any `datamodel_summary/` directory in the archive is intentionally not copied. Do not import it as event buckets.
+The archive's `datamodel_summary/` directory is intentionally not copied. Do not import it as event buckets.
 
 ## 5. Start Splunk and validate
 
