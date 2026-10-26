@@ -6,7 +6,7 @@ This guide restores the BOTS v5 GCP scenario into a dedicated index on Splunk En
 
 ## Scenario
 
-**GCP Scenario.** TODO: scenario summary.
+**GCP Scenario**
 
 ## Download
 

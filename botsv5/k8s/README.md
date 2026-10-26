@@ -6,7 +6,7 @@ This guide restores the BOTS v5 K8S scenario into a dedicated index on Splunk En
 
 ## Scenario
 
-**K8S Scenario.** TODO: scenario summary.
+**K8S Scenario**
 
 ## Download
 
