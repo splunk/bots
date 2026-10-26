@@ -1,5 +1,5 @@
 # Boss of the SOC (BOTS) Dataset Version 3
-A sample security dataset and CTF platform for information security professionals, researchers, students, and enthusiasts. This page hosts information regarding the version 3 *dataset*. If you would like access to the scoreboard software, please visit [the CTF Scoreboard Github repository](https://github.com/splunk/SA-ctf_scoreboard). If you are looking for the BOTS version 2 dataset, it can be found [here](https://github.com/splunk/botsv2). If you are looking for the BOTS version 1 dataset, it can be found [here](https://github.com/splunk/botsv1).
+A sample security dataset and CTF platform for information security professionals, researchers, students, and enthusiasts. This page hosts information regarding the version 3 *dataset*.
 
 ## Download
 
