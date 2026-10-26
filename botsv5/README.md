@@ -2,7 +2,7 @@
 
 BOTS v5 consists of **six separate scenario datasets**. Each scenario is distributed as its own pre-indexed bucket archive and is restored into its own set of dedicated indexes on Splunk Enterprise 10.x. The archives contain pre-indexed buckets, not raw event files or a Splunk app.
 
-> Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archives and check `splunkd.log` for errors. **TODO: confirm the Splunk version that produced the v5 buckets.**
+> Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archives and check `splunkd.log` for errors.
 
 ## Scenarios
 
