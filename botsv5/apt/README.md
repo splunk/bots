@@ -6,7 +6,7 @@ This guide restores the BOTS v5 APT scenario into 3 dedicated indexes on Splunk 
 
 ## Scenario
 
-TODO: APT scenario title and summary.
+**The Advanced APT Scenario.** TODO: scenario summary.
 
 ## Download
 

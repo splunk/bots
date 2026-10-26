@@ -8,14 +8,14 @@ BOTS v5 consists of **six separate scenario datasets**. Each scenario is distrib
 
 Each scenario has its own README with download links, index definitions, restore steps, and sourcetype inventory. Scenarios are independent: restore any one, or all six.
 
-| Scenario | Summary | Index prefix | Restore guide |
+| Scenario | Title | Index prefix | Restore guide |
 | --- | --- | --- | --- |
-| GCP | TODO: scenario title and summary | `botsv5-gcp-` | [gcp/README.md](gcp/README.md) |
-| K8S | TODO: scenario title and summary | `botsv5-k8s-` | [k8s/README.md](k8s/README.md) |
-| APT | TODO: scenario title and summary | `botsv5-apt-` | [apt/README.md](apt/README.md) |
-| ESS | TODO: scenario title and summary | `botsv5-ess-` | [ess/README.md](ess/README.md) |
-| RWI | TODO: scenario title and summary | `botsv5-rwi-` | [rwi/README.md](rwi/README.md) |
-| AWS | TODO: scenario title and summary | `botsv5-aws-` | [aws/README.md](aws/README.md) |
+| GCP | GCP Scenario | `botsv5-gcp-` | [gcp/README.md](gcp/README.md) |
+| K8S | K8S Scenario | `botsv5-k8s-` | [k8s/README.md](k8s/README.md) |
+| APT | The Advanced APT Scenario | `botsv5-apt-` | [apt/README.md](apt/README.md) |
+| ESS | The Enterprise Security Scenario | `botsv5-ess-` | [ess/README.md](ess/README.md) |
+| RWI | The Remote Work Scenario | `botsv5-rwi-` | [rwi/README.md](rwi/README.md) |
+| AWS | AWS Scenario | `botsv5-aws-` | [aws/README.md](aws/README.md) |
 
 ## Index naming
 

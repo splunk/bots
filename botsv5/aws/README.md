@@ -6,7 +6,7 @@ This guide restores the BOTS v5 AWS scenario into 9 dedicated indexes on Splunk 
 
 ## Scenario
 
-TODO: AWS scenario title and summary.
+**AWS Scenario.** TODO: scenario summary.
 
 ## Download
 

@@ -6,7 +6,7 @@ This guide restores the BOTS v5 ESS scenario into 3 dedicated indexes on Splunk 
 
 ## Scenario
 
-TODO: ESS scenario title and summary.
+**The Enterprise Security Scenario.** TODO: scenario summary.
 
 ## Download
 

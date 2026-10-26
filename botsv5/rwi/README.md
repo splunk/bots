@@ -6,7 +6,7 @@ This guide restores the BOTS v5 RWI scenario into 3 dedicated indexes on Splunk 
 
 ## Scenario
 
-TODO: RWI scenario title and summary.
+**The Remote Work Scenario.** TODO: scenario summary.
 
 ## Download
 
