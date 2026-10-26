@@ -19,7 +19,7 @@ Each scenario has its own README with download links, index definitions, restore
 
 ## Index naming
 
-Every scenario is restored into indexes named `botsv5-<scenario>-<index>`, such as `botsv5-gcp-main`, `botsv5-gcp-notable`, and `botsv5-gcp-risk`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's `main`, `notable`, or `risk` indexes, and to keep scenarios separate from one another. The AWS scenario includes additional indexes; see its README.
+Every scenario is restored into indexes named `botsv5-<scenario>-<index>`, such as `botsv5-gcp-main` (the GCP scenario's only index) or `botsv5-aws-main`, `botsv5-aws-notable`, and `botsv5-aws-risk`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's `main`, `notable`, or `risk` indexes, and to keep scenarios separate from one another. The AWS scenario includes additional indexes; see its README.
 
 To search across everything you have restored:
 

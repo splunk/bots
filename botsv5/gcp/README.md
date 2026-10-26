@@ -1,6 +1,6 @@
 # BOTS v5 GCP: Pre-indexed Dataset Recovery
 
-This guide restores the BOTS v5 GCP scenario into 3 dedicated indexes on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
+This guide restores the BOTS v5 GCP scenario into a dedicated index on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
@@ -14,24 +14,24 @@ The pre-indexed BOTS v5 GCP dataset will be hosted in an Amazon S3 bucket. The d
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 GCP | Pre-indexed buckets, restored as `botsv5-gcp-main`, `botsv5-gcp-notable`, `botsv5-gcp-risk` | `.tgz` archive | [Download BOTS v5 GCP dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp.tgz) |
+| BOTS v5 GCP | Pre-indexed buckets, restored as `botsv5-gcp-main` | `.tgz` archive | [Download BOTS v5 GCP dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp.tgz) |
 | BOTS v5 GCP Q&A | Questions and answers for the BOTS v5 GCP exercise | PDF | [Download BOTS v5 GCP Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-gcp.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-gcp.tgz`. The archive is about 207 MB (about 337 MB extracted). Its SHA-256 checksum is `ce04cc6002185024085848380c66d3aaa14efc32d57afc8d0f4d4aadb7bc57fd`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
 This restoration intentionally uses new logical index names to avoid interfering with an existing installation's indexes.
 
-| Archive directory | Restored logical index | Destination directory |
-| --- | --- | --- |
-| `TODO/` | `botsv5-gcp-main` | `$SPLUNK_DB/botsv5-gcp-main/` |
-| `notabledb/` | `botsv5-gcp-notable` | `$SPLUNK_DB/botsv5-gcp-notable/` |
-| `riskdb/` | `botsv5-gcp-risk` | `$SPLUNK_DB/botsv5-gcp-risk/` |
+| Archive directory | Restored logical index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `defaultdb/` | `botsv5-gcp-main` | `$SPLUNK_DB/botsv5-gcp-main/` | 21 |
+
+The archive contains only the `defaultdb` index. There are no notable, risk, or additional indexes for this scenario.
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+The archive's `datamodel_summary/` directory contains acceleration summaries and is not imported by this procedure.
 
 ## Prerequisites
 
@@ -54,7 +54,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`; the archive should contain 21 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: ce04cc6002185024085848380c66d3aaa14efc32d57afc8d0f4d4aadb7bc57fd
+```
 
 ## 2. Configure dedicated indexes
 
@@ -67,20 +72,6 @@ coldPath = $SPLUNK_DB/botsv5-gcp-main/colddb
 thawedPath = $SPLUNK_DB/botsv5-gcp-main/thaweddb
 frozenTimePeriodInSecs = 1893456000
 maxTotalDataSizeMB = 102400
-
-[botsv5-gcp-notable]
-homePath = $SPLUNK_DB/botsv5-gcp-notable/db
-coldPath = $SPLUNK_DB/botsv5-gcp-notable/colddb
-thawedPath = $SPLUNK_DB/botsv5-gcp-notable/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
-
-[botsv5-gcp-risk]
-homePath = $SPLUNK_DB/botsv5-gcp-risk/db
-coldPath = $SPLUNK_DB/botsv5-gcp-risk/colddb
-thawedPath = $SPLUNK_DB/botsv5-gcp-risk/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
 ```
 
 The retention period is approximately 60 years. The 100 GiB per-index size limit is an example, **not** a reservation of disk space. Adjust it for your environment. Size limits can freeze buckets even when age-based retention is long. Keep backups.
@@ -88,7 +79,7 @@ The retention period is approximately 60 years. The 100 GiB per-index size limit
 Check the effective configuration without starting Splunk:
 
 ```bash
-for idx in botsv5-gcp-main botsv5-gcp-notable botsv5-gcp-risk; do
+for idx in botsv5-gcp-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
@@ -102,7 +93,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-gcp-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-gcp-stage
-sudo find /tmp/botsv5-gcp-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-gcp-stage -name journal.gz -type f | wc -l   # expect 21
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -114,7 +105,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-gcp-main' 'notabledb:botsv5-gcp-notable' 'riskdb:botsv5-gcp-risk'; do
+for mapping in 'defaultdb:botsv5-gcp-main'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -138,12 +129,12 @@ done
 Ensure the copied directories and files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
 
 ```bash
-for idx in botsv5-gcp-main botsv5-gcp-notable botsv5-gcp-risk; do
+for idx in botsv5-gcp-main; do
   sudo chown -R splunk:splunk "$SPLUNK_DB/$idx"
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+The archive's `datamodel_summary/` directory is intentionally not copied. Do not import it as event buckets.
 
 ## 5. Start Splunk and validate
 
@@ -156,11 +147,6 @@ Use an all-time search because the events are historical:
 ```spl
 | tstats count WHERE index=botsv5-gcp-main earliest=0 BY sourcetype
 | sort -count
-```
-
-```spl
-| tstats count WHERE index=botsv5-gcp-* earliest=0 BY index
-| sort index
 ```
 
 Inspect registered buckets:
@@ -182,7 +168,7 @@ Do not delete the original archive or repeatedly restart against the only copy o
 ## 6. Verify retention
 
 ```bash
-for idx in botsv5-gcp-main botsv5-gcp-notable botsv5-gcp-risk; do
+for idx in botsv5-gcp-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
