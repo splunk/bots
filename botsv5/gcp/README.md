@@ -4,10 +4,6 @@ This guide restores the BOTS v5 GCP scenario into a dedicated index on Splunk En
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
-## Scenario
-
-**GCP Scenario**
-
 ## Download
 
 The pre-indexed BOTS v5 GCP dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.

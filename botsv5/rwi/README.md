@@ -4,10 +4,6 @@ This guide restores the BOTS v5 RWI scenario into 3 dedicated indexes on Splunk 
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
-## Scenario
-
-**The Remote Work Scenario**
-
 ## Download
 
 The pre-indexed BOTS v5 RWI dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
