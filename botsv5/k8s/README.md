@@ -1,6 +1,6 @@
 # BOTS v5 K8S: Pre-indexed Dataset Recovery
 
-This guide restores the BOTS v5 K8S scenario into 3 dedicated indexes on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
+This guide restores the BOTS v5 K8S scenario into a dedicated index on Splunk Enterprise 10.x. See the [BOTS v5 overview](../README.md) for the other scenarios, licensing, and content notices.
 
 > Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
 
@@ -14,7 +14,7 @@ The pre-indexed BOTS v5 K8S dataset will be hosted in an Amazon S3 bucket. The d
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 K8S | Pre-indexed buckets, restored as `botsv5-k8s-main`, `botsv5-k8s-notable`, `botsv5-k8s-risk` | `.tgz` archive | [Download BOTS v5 K8S dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s.tgz) |
+| BOTS v5 K8S | Pre-indexed buckets, restored as `botsv5-k8s-main` | `.tgz` archive | [Download BOTS v5 K8S dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s.tgz) |
 | BOTS v5 K8S Q&A | Questions and answers for the BOTS v5 K8S exercise | PDF | [Download BOTS v5 K8S Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s-qa.pdf) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-k8s.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
@@ -23,15 +23,15 @@ Download the archive to your Splunk server before following the installation ste
 
 This restoration intentionally uses new logical index names to avoid interfering with an existing installation's indexes.
 
-| Archive directory | Restored logical index | Destination directory |
-| --- | --- | --- |
-| `TODO/` | `botsv5-k8s-main` | `$SPLUNK_DB/botsv5-k8s-main/` |
-| `notabledb/` | `botsv5-k8s-notable` | `$SPLUNK_DB/botsv5-k8s-notable/` |
-| `riskdb/` | `botsv5-k8s-risk` | `$SPLUNK_DB/botsv5-k8s-risk/` |
+| Archive directory | Restored logical index | Destination directory | Buckets |
+| --- | --- | --- | ---: |
+| `defaultdb/` | `botsv5-k8s-main` | `$SPLUNK_DB/botsv5-k8s-main/` | TODO |
+
+The archive contains only the `defaultdb` index. There are no notable, risk, or additional indexes for this scenario.
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+Any `datamodel_summary/` directory in the archive contains acceleration summaries and is not imported by this procedure. **TODO: record the recovered bucket count.**
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `TODO/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
 
 ## 2. Configure dedicated indexes
 
@@ -67,20 +67,6 @@ coldPath = $SPLUNK_DB/botsv5-k8s-main/colddb
 thawedPath = $SPLUNK_DB/botsv5-k8s-main/thaweddb
 frozenTimePeriodInSecs = 1893456000
 maxTotalDataSizeMB = 102400
-
-[botsv5-k8s-notable]
-homePath = $SPLUNK_DB/botsv5-k8s-notable/db
-coldPath = $SPLUNK_DB/botsv5-k8s-notable/colddb
-thawedPath = $SPLUNK_DB/botsv5-k8s-notable/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
-
-[botsv5-k8s-risk]
-homePath = $SPLUNK_DB/botsv5-k8s-risk/db
-coldPath = $SPLUNK_DB/botsv5-k8s-risk/colddb
-thawedPath = $SPLUNK_DB/botsv5-k8s-risk/thaweddb
-frozenTimePeriodInSecs = 1893456000
-maxTotalDataSizeMB = 102400
 ```
 
 The retention period is approximately 60 years. The 100 GiB per-index size limit is an example, **not** a reservation of disk space. Adjust it for your environment. Size limits can freeze buckets even when age-based retention is long. Keep backups.
@@ -88,7 +74,7 @@ The retention period is approximately 60 years. The 100 GiB per-index size limit
 Check the effective configuration without starting Splunk:
 
 ```bash
-for idx in botsv5-k8s-main botsv5-k8s-notable botsv5-k8s-risk; do
+for idx in botsv5-k8s-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
@@ -114,7 +100,7 @@ These commands copy each original source directory's `db` and `colddb` buckets t
 ```bash
 set -e
 
-for mapping in 'TODO:botsv5-k8s-main' 'notabledb:botsv5-k8s-notable' 'riskdb:botsv5-k8s-risk'; do
+for mapping in 'defaultdb:botsv5-k8s-main'; do
   srcname=${mapping%%:*}
   dstname=${mapping#*:}
 
@@ -138,12 +124,12 @@ done
 Ensure the copied directories and files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
 
 ```bash
-for idx in botsv5-k8s-main botsv5-k8s-notable botsv5-k8s-risk; do
+for idx in botsv5-k8s-main; do
   sudo chown -R splunk:splunk "$SPLUNK_DB/$idx"
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+Any `datamodel_summary/` directory in the archive is intentionally not copied. Do not import it as event buckets.
 
 ## 5. Start Splunk and validate
 
@@ -156,11 +142,6 @@ Use an all-time search because the events are historical:
 ```spl
 | tstats count WHERE index=botsv5-k8s-main earliest=0 BY sourcetype
 | sort -count
-```
-
-```spl
-| tstats count WHERE index=botsv5-k8s-* earliest=0 BY index
-| sort index
 ```
 
 Inspect registered buckets:
@@ -182,7 +163,7 @@ Do not delete the original archive or repeatedly restart against the only copy o
 ## 6. Verify retention
 
 ```bash
-for idx in botsv5-k8s-main botsv5-k8s-notable botsv5-k8s-risk; do
+for idx in botsv5-k8s-main; do
   "$SPLUNK_HOME/bin/splunk" btool indexes list "$idx" --debug | \
     grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
 done
