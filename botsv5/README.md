@@ -44,4 +44,4 @@ These guides document recovery of the original event buckets into dedicated dest
 
 ## Authors
 
-TODO: confirm the author list for BOTS v5.
+Written by Dave Herrald, Ryan Kovar, James Brodsky, John Stoner, Tom Smit, Tim Frazier, Lily "LLZ" Lee, Simon O'Brien, Ian Forrest, Michael Natkin, and Shannon Davis.
