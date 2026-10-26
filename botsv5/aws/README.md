@@ -13,7 +13,7 @@ The pre-indexed BOTS v5 AWS dataset will be hosted in an Amazon S3 bucket. The d
 | BOTS v5 AWS | Pre-indexed buckets, restored as `botsv5-aws-main`, `botsv5-aws-notable`, `botsv5-aws-risk` and six additional AWS indexes | `.tgz` archive | [Download BOTS v5 AWS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-aws.tgz) |
 | BOTS v5 AWS Q&A | Questions and answers for the BOTS v5 AWS exercise | PDF | [Download BOTS v5 AWS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-aws-qa.pdf) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The archive is about 42 MB. Its SHA-256 checksum is `4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
@@ -35,7 +35,7 @@ The `aws_` prefix is dropped from the six additional index names because `botsv5
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
-**TODO: record the recovered bucket directory counts.** Separate `notable/` and `risk/` directories may contain acceleration summaries and are not imported by this procedure.
+The archive also contains `summary/` and `datamodel_summary/` directories, which are not imported by this procedure.
 
 ## Prerequisites
 
@@ -58,7 +58,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. **TODO: confirm the archive layout.** If it differs, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 445 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: 4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78
+```
 
 ## 2. Configure dedicated indexes
 
@@ -148,7 +153,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-aws-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-aws-stage
-sudo find /tmp/botsv5-aws-stage -name journal.gz -type f | wc -l
+sudo find /tmp/botsv5-aws-stage -name journal.gz -type f | wc -l   # expect 445
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
@@ -189,7 +194,7 @@ for idx in botsv5-aws-main botsv5-aws-notable botsv5-aws-risk botsv5-aws-anomaly
 done
 ```
 
-The archive's `notable/` and `risk/` summary directories are intentionally not copied. Do not import them as event buckets.
+The archive's `summary/` and `datamodel_summary/` directories are intentionally not copied. Do not import them as event buckets.
 
 ## 5. Start Splunk and validate
 
