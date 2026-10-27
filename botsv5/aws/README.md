@@ -270,6 +270,34 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following sourcetypes were reported by the source Splunk instance for the indexes whose buckets are restored by this procedure. Counts reflect the supplied inventory and may differ on another restoration.
+
+### `index=main` (restored as `index=botsv5-aws-main`)
+
+**9 sourcetypes**, 88,348 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `aws:cloudtrail` | 47,420 |
+| `aws:cloudwatchlogs:vpcflow` | 33,943 |
+| `aws:cloudwatch` | 5,663 |
+| `aws:config:rule` | 334 |
+| `aws:s3:accesslogs` | 331 |
+| `aws:config` | 329 |
+| `aws:description` | 164 |
+| `aws:securityhub:firehose` | 144 |
+| `aws:cloudwatch:guardduty` | 20 |
+
+### `index=notable` (restored as `index=botsv5-aws-notable`)
+
+**1 sourcetype**, 193 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 193 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
