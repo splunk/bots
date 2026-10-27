@@ -346,3 +346,7 @@ The following sourcetypes were reported by the source Splunk instance for the in
 | Sourcetype | Events |
 | --- | ---: |
 | `stash` | 28 |
+
+## Security and content notice
+
+BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.

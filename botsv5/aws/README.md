@@ -269,3 +269,7 @@ done
 ```
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
+
+## Security and content notice
+
+BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
