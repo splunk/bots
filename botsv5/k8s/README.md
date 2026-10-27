@@ -172,6 +172,58 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following **45 sourcetypes** (1,110,598 events) were reported by the source Splunk instance for `index=main` (restored as `index=botsv5-k8s-main`). Counts reflect the supplied inventory and may differ on another restoration.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stream:dns` | 292,666 |
+| `stream:ip` | 226,427 |
+| `stream:tcp` | 191,799 |
+| `stream:http` | 120,187 |
+| `stream:udp` | 109,873 |
+| `aws:cloudwatchlogs:eks` | 94,470 |
+| `fluentd:monitor-agent` | 11,086 |
+| `aws:elb:accesslogs` | 9,981 |
+| `kube:container:webfrontend` | 9,022 |
+| `kube:container:adminfrontend` | 8,757 |
+| `kube:objects:service_accounts` | 5,632 |
+| `kube:objects:pods` | 5,006 |
+| `kube:container:splunk-fluentd-k8s-logs` | 4,924 |
+| `stream:mysql` | 2,972 |
+| `kube:objects:replica_sets` | 2,817 |
+| `kube:container:kubernetes-dashboard` | 2,341 |
+| `kube:objects:deployments` | 2,051 |
+| `kube:objects:config_maps` | 1,905 |
+| `kube:objects:services` | 1,778 |
+| `kube:container:dashboard-metrics-scraper` | 1,157 |
+| `kube:objects:namespaces` | 889 |
+| `kube:objects:daemon_sets` | 663 |
+| `kube:objects:events` | 634 |
+| `kube:objects:nodes` | 508 |
+| `kube:container:cartservice` | 426 |
+| `kube:objects:component_statuses` | 381 |
+| `kube` | 344 |
+| `kube:container:productservice` | 308 |
+| `kube:container:nginx` | 282 |
+| `kube:container:metrics-server` | 232 |
+| `kube:container:splunk-fluentd-k8s-metrics-agg` | 149 |
+| `kube:container:alb-ingress-controller` | 146 |
+| `kube:kubelet` | 142 |
+| `kube:container:ordersservice` | 128 |
+| `kube:container:backend-tools` | 104 |
+| `aws:cloudtrail` | 101 |
+| `kube:docker` | 92 |
+| `kube:container:splunk-operator` | 55 |
+| `kube:container:splunk-fluentd-k8s-metrics` | 43 |
+| `kube:container:kube-hunter` | 41 |
+| `kube:container:splunk-fluentd-k8s-objects` | 41 |
+| `kube:container:adminfrontend2` | 27 |
+| `pod-file-changes` | 6 |
+| `kube:container:coredns` | 4 |
+| `pod-bash-history` | 1 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
