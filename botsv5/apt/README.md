@@ -191,6 +191,59 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following sourcetypes were reported by the source Splunk instance for the indexes whose buckets are restored by this procedure. Counts reflect the supplied inventory and may differ on another restoration.
+
+### `index=main` (restored as `index=botsv5-apt-main`)
+
+**26 sourcetypes**, 704,492 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stream:smb` | 347,055 |
+| `XmlWinEventLog` | 114,788 |
+| `stream:ip` | 66,716 |
+| `stream:dns` | 60,564 |
+| `stream:udp` | 42,713 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 26,303 |
+| `stream:tcp` | 23,903 |
+| `stream:http` | 10,504 |
+| `Perfmon:Network Interface` | 2,508 |
+| `Perfmon:CPU Load` | 2,435 |
+| `stream:ldap` | 1,428 |
+| `Perfmon:Available Memory` | 1,254 |
+| `o365:management:activity` | 968 |
+| `o365:service:status` | 924 |
+| `Script:ListeningPorts` | 828 |
+| `stream:dhcp` | 633 |
+| `azure:eventhub` | 382 |
+| `Script:InstalledApps` | 234 |
+| `azure:aad:signin` | 159 |
+| `XmlWinEventLog:Microsoft-Windows-PowerShell/Operational` | 113 |
+| `Script:TimesyncConfiguration` | 28 |
+| `Script:TimesyncStatus` | 28 |
+| `Script:NetworkConfiguration` | 8 |
+| `XmlWinEventLog:Microsoft-Windows-Windows Defender/Operational` | 7 |
+| `Perfmon:Free Disk Space` | 6 |
+| `o365:service:message` | 3 |
+
+### `index=notable` (restored as `index=botsv5-apt-notable`)
+
+**1 sourcetype**, 27 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 27 |
+
+### `index=risk` (restored as `index=botsv5-apt-risk`)
+
+**1 sourcetype**, 26 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 26 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
