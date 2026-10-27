@@ -172,6 +172,83 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following **70 sourcetypes** (9,947,304 events) were reported by the source Splunk instance for `index=main` (restored as `index=botsv5-rwi-main`). Counts reflect the supplied inventory and may differ on another restoration.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stream:ip` | 3,327,217 |
+| `stream:dns` | 2,484,363 |
+| `stream:tcp` | 1,986,984 |
+| `juniper:junos:firewall` | 535,439 |
+| `stream:http` | 421,879 |
+| `XmlWinEventLog` | 398,434 |
+| `stream:sip` | 165,580 |
+| `linux_audit` | 131,779 |
+| `stream:udp` | 118,253 |
+| `stream:smb` | 82,119 |
+| `access-too_small` | 48,856 |
+| `syslog` | 47,104 |
+| `stream:ldap` | 46,774 |
+| `freepbx-2` | 33,245 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 21,584 |
+| `juniper:ive` | 21,224 |
+| `stream:icmp` | 16,719 |
+| `osquery:info` | 11,151 |
+| `Script:ListeningPorts` | 10,386 |
+| `XmlWinEventLog:Microsoft-Windows-Powershell/Operational` | 7,877 |
+| `gapps:admin:directory:users` | 7,614 |
+| `Unix:Service` | 6,011 |
+| `osquery:results` | 4,062 |
+| `gapps:chrome:api` | 1,874 |
+| `Script:InstalledApps` | 1,850 |
+| `Powershell:ScriptExecutionSummary` | 1,571 |
+| `MSAD:NT6:Health` | 1,315 |
+| `Unix:ListeningPorts` | 1,166 |
+| `redis` | 1,152 |
+| `postfix_syslog` | 486 |
+| `MSAD:NT6:DNS-Zone-Information` | 481 |
+| `apache_error` | 386 |
+| `Script:TimesyncConfiguration` | 264 |
+| `Script:TimesyncStatus` | 264 |
+| `MSAD:NT6:SiteInfo` | 212 |
+| `Powershell:ScriptExecutionErrorRecord` | 211 |
+| `stream:ftp` | 147 |
+| `zoom:webhook` | 147 |
+| `ActiveDirectory` | 139 |
+| `access_log-too_small` | 129 |
+| `gmail:enforce:audit:ta:output` | 98 |
+| `dpkg-too_small` | 88 |
+| `ucp_out` | 77 |
+| `osquery:warning` | 74 |
+| `Script:NetworkConfiguration` | 70 |
+| `MSAD:NT6:DNS-Health` | 62 |
+| `osquery:snapshots` | 62 |
+| `gmail:audit:headers` | 54 |
+| `XmlWinEventLog:Microsoft-Windows-PowerShell/Operational` | 52 |
+| `GSuiteForSplunk:error` | 36 |
+| `gapps:report:drive` | 35 |
+| `gsuite:directory:user` | 24 |
+| `error-too_small` | 17 |
+| `ucp_err` | 15 |
+| `Script:GetEndpointInfo` | 11 |
+| `gapps:report:admin` | 11 |
+| `term-too_small` | 11 |
+| `gapps:report:token` | 10 |
+| `ssl_access_log-too_small` | 10 |
+| `ssl_request_log-too_small` | 10 |
+| `gapps:report:mobile` | 7 |
+| `history-too_small` | 6 |
+| `gapps:report:user_accounts` | 3 |
+| `pulse:connectsecure` | 3 |
+| `queue_log-too_small` | 3 |
+| `fail2ban-2` | 2 |
+| `freepbx_security-too_small` | 2 |
+| `gapps:usage:customer` | 1 |
+| `kern-too_small` | 1 |
+| `kern.log-too_small` | 1 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
