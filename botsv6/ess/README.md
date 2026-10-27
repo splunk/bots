@@ -225,6 +225,216 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following sourcetypes were reported by the source Splunk instance for the indexes whose buckets are restored by this procedure. Counts reflect the supplied inventory and may differ on another restoration.
+
+### `index=apt` (restored as `index=botsv6-ess-apt`)
+
+**33 sourcetypes**, 1,017,664 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stream:smb` | 460,582 |
+| `XmlWinEventLog` | 256,807 |
+| `bro:dns:json` | 116,594 |
+| `stream:dns` | 75,586 |
+| `stream:ip` | 31,179 |
+| `bro:conn:json` | 22,926 |
+| `stream:udp` | 18,093 |
+| `stream:tcp` | 10,657 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 8,920 |
+| `bro:ssl:json` | 7,857 |
+| `bro:rdp:json` | 3,156 |
+| `o365:graph:api` | 1,770 |
+| `stream:http` | 1,478 |
+| `Script:ListeningPorts` | 909 |
+| `o365:management:activity` | 311 |
+| `bro:http:json` | 174 |
+| `bro:files:json` | 171 |
+| `WindowsUpdateLog` | 147 |
+| `azure:aad:signin` | 88 |
+| `Script:InstalledApps` | 48 |
+| `ms:iis:splunk` | 33 |
+| `Script:TimesyncConfiguration` | 29 |
+| `Script:TimesyncStatus` | 29 |
+| `azure:aad:audit` | 26 |
+| `o365:service:status` | 25 |
+| `bro:smb_mapping:json` | 24 |
+| `ActiveDirectory` | 18 |
+| `bro:smb_files:json` | 9 |
+| `o365:service:message` | 6 |
+| `Script:GetEndpointInfo` | 5 |
+| `Script:NetworkConfiguration` | 3 |
+| `bro:x509:json` | 3 |
+| `bro:software:json` | 1 |
+
+### `index=apt_dtex` (restored as `index=botsv6-ess-apt_dtex`)
+
+**1 sourcetype**, 8,061 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `dtex_st_activities` | 8,061 |
+
+### `index=frothly_events` (restored as `index=botsv6-ess-frothly_events`)
+
+**1 sourcetype**, 1,586 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `st_frothly_events` | 1,586 |
+
+### `index=insider` (restored as `index=botsv6-ess-insider`)
+
+**63 sourcetypes**, 5,122,137 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `cp_log` | 2,942,654 |
+| `XmlWinEventLog` | 1,193,859 |
+| `osquery:info` | 178,054 |
+| `sfdc:logfile` | 103,728 |
+| `osquery:results` | 74,163 |
+| `sfdc-streaming-api-events` | 69,289 |
+| `gapps:admin:directory:users` | 49,560 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 34,651 |
+| `XmlWinEventLog:Microsoft-Windows-Powershell/Operational` | 30,710 |
+| `Script:ListeningPorts` | 28,472 |
+| `osquery:warning` | 27,560 |
+| `osquery:error` | 26,497 |
+| `gmail:audit:ta:output` | 24,032 |
+| `gapps:report:chat:modular_input_result` | 21,243 |
+| `sfdc:loginhistory` | 19,922 |
+| `gapps:usage:user:api` | 18,911 |
+| `gapps:usage:customer:api` | 16,046 |
+| `gapps:report:access_transparency:modular_input_result` | 14,162 |
+| `gapps:report:admin:modular_input_result` | 14,162 |
+| `gapps:report:calendar:modular_input_result` | 14,162 |
+| `gapps:report:drive:modular_input_result` | 14,162 |
+| `gapps:report:gcp:modular_input_result` | 14,162 |
+| `gapps:report:gplus:modular_input_result` | 14,162 |
+| `gapps:report:groups:modular_input_result` | 14,162 |
+| `gapps:report:groups_enterprise:modular_input_result` | 14,162 |
+| `gapps:report:jamboard:modular_input_result` | 14,162 |
+| `gapps:report:login:modular_input_result` | 14,162 |
+| `gapps:report:meet:modular_input_result` | 14,162 |
+| `gapps:report:mobile:modular_input_result` | 14,162 |
+| `gapps:report:rules:modular_input_result` | 14,162 |
+| `gapps:report:saml:modular_input_result` | 14,162 |
+| `gapps:report:token:modular_input_result` | 14,162 |
+| `gapps:report:user_accounts:modular_input_result` | 14,162 |
+| `gmail:enforce:audit:ta:output` | 8,499 |
+| `gapps:chrome:api` | 7,081 |
+| `Powershell:ScriptExecutionSummary` | 5,976 |
+| `MSAD:NT6:Health` | 5,035 |
+| `MSAD:NT6:DNS-Zone-Information` | 1,912 |
+| `Script:InstalledApps` | 1,885 |
+| `ActiveDirectory` | 1,298 |
+| `Powershell:ScriptExecutionErrorRecord` | 779 |
+| `osquery:snapshots` | 747 |
+| `MSAD:NT6:SiteInfo` | 742 |
+| `Script:TimesyncConfiguration` | 658 |
+| `Script:TimesyncStatus` | 658 |
+| `MSAD:NT6:DNS-Health` | 239 |
+| `XmlWinEventLog:Microsoft-Windows-PrintService/Operational` | 179 |
+| `GSuiteForSplunk:error` | 110 |
+| `gmail:audit:headers` | 87 |
+| `WinPrintMon` | 82 |
+| `Script:NetworkConfiguration` | 74 |
+| `gapps:usage:user` | 55 |
+| `gapps:report:drive` | 36 |
+| `Script:GetEndpointInfo` | 21 |
+| `gapps:report:mobile` | 13 |
+| `gapps:report:token` | 8 |
+| `gapps:usage:customer` | 8 |
+| `gapps:report:calendar` | 3 |
+| `sfdc:account` | 3 |
+| `gapps:report:login` | 2 |
+| `sfdc:user` | 2 |
+| `XmlWinEventLog:Microsoft-Windows-PrintService/Admin` | 1 |
+| `gapps:report:user_accounts` | 1 |
+
+### `index=notable` (restored as `index=botsv6-ess-notable`)
+
+**1 sourcetype**, 85 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 85 |
+
+### `index=risk` (restored as `index=botsv6-ess-risk`)
+
+**1 sourcetype**, 118 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 118 |
+
+### `index=toads` (restored as `index=botsv6-ess-toads`)
+
+**57 sourcetypes**, 21,377,568 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `XmlWinEventLog` | 10,288,688 |
+| `amdl:nsg:flowlogs` | 4,248,658 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 3,206,665 |
+| `google:gcp:pubsub:message` | 1,287,512 |
+| `WindowsUpdateLog` | 568,303 |
+| `aws:cloudwatchlogs:vpcflow` | 479,681 |
+| `aws:cloudwatchlogs` | 447,967 |
+| `aws:cloudtrail` | 96,135 |
+| `azure:vnet:ip:public` | 95,221 |
+| `azure:compute:vm` | 81,666 |
+| `syslog` | 73,633 |
+| `azure:vnet:nsg` | 68,020 |
+| `azure:compute:snapshot` | 54,448 |
+| `WinEventLog:Microsoft-Windows-PowerShell/Operational` | 49,344 |
+| `linux_audit` | 45,476 |
+| `auth-too_small` | 42,370 |
+| `azure:vnet:nic` | 40,815 |
+| `azure:compute:disk` | 27,230 |
+| `azure:compute:image` | 27,228 |
+| `azure:compute:vm:instanceView` | 27,220 |
+| `Script:ListeningPorts` | 20,923 |
+| `daemon-too_small` | 19,191 |
+| `azure:aad:device` | 16,350 |
+| `azure:aad:user` | 14,781 |
+| `azure:aad:signin` | 14,640 |
+| `azure:vnet` | 13,606 |
+| `access-too_small` | 6,850 |
+| `google:gcp:buckets:jsondata` | 4,482 |
+| `o365:management:activity` | 2,778 |
+| `access_combined` | 2,206 |
+| `ActiveDirectory` | 1,954 |
+| `Script:InstalledApps` | 1,019 |
+| `XmlWinEventLog:Microsoft-Windows-Windows Defender/Operational` | 588 |
+| `Script:TimesyncConfiguration` | 457 |
+| `Script:TimesyncStatus` | 457 |
+| `ms:o365:email` | 305 |
+| `user-too_small` | 174 |
+| `apache_error` | 95 |
+| `error` | 90 |
+| `debug-too_small` | 77 |
+| `unattended-upgrades-too_small` | 47 |
+| `Script:NetworkConfiguration` | 46 |
+| `dpkg-too_small` | 43 |
+| `azure:aad:audit` | 40 |
+| `azure:resource:group` | 36 |
+| `Script:GetEndpointInfo` | 19 |
+| `azure:subscriptions` | 9 |
+| `php7.4-fpm-too_small` | 6 |
+| `google:gcp:pubsub:audit:auth` | 3 |
+| `term-too_small` | 3 |
+| `unattended-upgrades-dpkg-too_small` | 3 |
+| `alternatives-too_small` | 2 |
+| `google:gsuite:pubsub:audit:auth` | 2 |
+| `history-too_small` | 2 |
+| `powershell` | 2 |
+| `google:gcp:buckets:metadata` | 1 |
+| `web` | 1 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
