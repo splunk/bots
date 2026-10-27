@@ -198,3 +198,151 @@ done
 ```
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
+
+## Data sourcetypes included
+
+The following sourcetypes were reported by the source Splunk instance for the indexes included in the archive. Each is restored into the matching `botsv5-ess-*` index. Counts reflect the supplied inventory and may differ on another restoration.
+
+### `index=main` (restored as `index=botsv5-ess-main`)
+
+**121 sourcetypes**, 11,693,645 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stream:ip` | 3,620,360 |
+| `stream:dns` | 2,768,923 |
+| `stream:tcp` | 2,202,686 |
+| `stream:http` | 552,503 |
+| `juniper:junos:firewall` | 535,439 |
+| `XmlWinEventLog` | 513,211 |
+| `stream:smb` | 429,174 |
+| `stream:udp` | 270,839 |
+| `stream:sip` | 165,580 |
+| `linux_audit` | 131,779 |
+| `aws:cloudwatchlogs:eks` | 94,470 |
+| `access-too_small` | 48,856 |
+| `stream:ldap` | 48,202 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 47,887 |
+| `syslog` | 47,104 |
+| `freepbx-2` | 33,245 |
+| `juniper:ive` | 21,224 |
+| `stream:icmp` | 16,719 |
+| `Script:ListeningPorts` | 11,214 |
+| `osquery:info` | 11,151 |
+| `fluentd:monitor-agent` | 11,086 |
+| `aws:elb:accesslogs` | 9,981 |
+| `kube:container:webfrontend` | 9,022 |
+| `kube:container:adminfrontend` | 8,757 |
+| `XmlWinEventLog:Microsoft-Windows-Powershell/Operational` | 7,877 |
+| `gapps:admin:directory:users` | 7,614 |
+| `Unix:Service` | 6,011 |
+| `kube:objects:service_accounts` | 5,632 |
+| `kube:objects:pods` | 5,006 |
+| `kube:container:splunk-fluentd-k8s-logs` | 4,924 |
+| `osquery:results` | 4,062 |
+| `stream:mysql` | 2,972 |
+| `kube:objects:replica_sets` | 2,817 |
+| `Perfmon:Network Interface` | 2,508 |
+| `Perfmon:CPU Load` | 2,435 |
+| `kube:container:kubernetes-dashboard` | 2,341 |
+| `Script:InstalledApps` | 2,084 |
+| `kube:objects:deployments` | 2,051 |
+| `kube:objects:config_maps` | 1,905 |
+| `gapps:chrome:api` | 1,874 |
+| `kube:objects:services` | 1,778 |
+| `Powershell:ScriptExecutionSummary` | 1,571 |
+| `MSAD:NT6:Health` | 1,315 |
+| `Perfmon:Available Memory` | 1,254 |
+| `Unix:ListeningPorts` | 1,166 |
+| `kube:container:dashboard-metrics-scraper` | 1,157 |
+| `redis` | 1,152 |
+| `o365:management:activity` | 968 |
+| `o365:service:status` | 924 |
+| `kube:objects:namespaces` | 889 |
+| `kube:objects:daemon_sets` | 663 |
+| `kube:objects:events` | 634 |
+| `stream:dhcp` | 632 |
+| `kube:objects:nodes` | 508 |
+| `postfix_syslog` | 486 |
+| `MSAD:NT6:DNS-Zone-Information` | 481 |
+| `kube:container:cartservice` | 426 |
+| `apache_error` | 386 |
+| `azure:eventhub` | 382 |
+| `kube:objects:component_statuses` | 381 |
+| `kube` | 344 |
+| `kube:container:productservice` | 308 |
+| `Script:TimesyncConfiguration` | 292 |
+| `Script:TimesyncStatus` | 292 |
+| `kube:container:nginx` | 282 |
+| `kube:container:metrics-server` | 232 |
+| `MSAD:NT6:SiteInfo` | 212 |
+| `Powershell:ScriptExecutionErrorRecord` | 211 |
+| `XmlWinEventLog:Microsoft-Windows-PowerShell/Operational` | 165 |
+| `azure:aad:signin` | 159 |
+| `kube:container:splunk-fluentd-k8s-metrics-agg` | 149 |
+| `stream:ftp` | 147 |
+| `zoom:webhook` | 147 |
+| `kube:container:alb-ingress-controller` | 146 |
+| `kube:kubelet` | 142 |
+| `ActiveDirectory` | 139 |
+| `access_log-too_small` | 129 |
+| `kube:container:ordersservice` | 128 |
+| `kube:container:backend-tools` | 104 |
+| `aws:cloudtrail` | 101 |
+| `gmail:enforce:audit:ta:output` | 98 |
+| `kube:docker` | 92 |
+| `dpkg-too_small` | 88 |
+| `Script:NetworkConfiguration` | 78 |
+| `ucp_out` | 77 |
+| `osquery:warning` | 74 |
+| `MSAD:NT6:DNS-Health` | 62 |
+| `osquery:snapshots` | 62 |
+| `kube:container:splunk-operator` | 55 |
+| `gmail:audit:headers` | 54 |
+| `kube:container:splunk-fluentd-k8s-metrics` | 43 |
+| `kube:container:kube-hunter` | 41 |
+| `kube:container:splunk-fluentd-k8s-objects` | 41 |
+| `GSuiteForSplunk:error` | 36 |
+| `gapps:report:drive` | 35 |
+| `kube:container:adminfrontend2` | 27 |
+| `gsuite:directory:user` | 24 |
+| `error-too_small` | 17 |
+| `ucp_err` | 15 |
+| `Script:GetEndpointInfo` | 11 |
+| `gapps:report:admin` | 11 |
+| `term-too_small` | 11 |
+| `gapps:report:token` | 10 |
+| `ssl_access_log-too_small` | 10 |
+| `ssl_request_log-too_small` | 10 |
+| `XmlWinEventLog:Microsoft-Windows-Windows Defender/Operational` | 7 |
+| `gapps:report:mobile` | 7 |
+| `Perfmon:Free Disk Space` | 6 |
+| `history-too_small` | 6 |
+| `pod-file-changes` | 6 |
+| `kube:container:coredns` | 4 |
+| `gapps:report:user_accounts` | 3 |
+| `o365:service:message` | 3 |
+| `pulse:connectsecure` | 3 |
+| `queue_log-too_small` | 3 |
+| `fail2ban-2` | 2 |
+| `freepbx_security-too_small` | 2 |
+| `gapps:usage:customer` | 1 |
+| `kern-too_small` | 1 |
+| `kern.log-too_small` | 1 |
+| `pod-bash-history` | 1 |
+
+### `index=notable` (restored as `index=botsv5-ess-notable`)
+
+**1 sourcetypes**, 14 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 14 |
+
+### `index=risk` (restored as `index=botsv5-ess-risk`)
+
+**1 sourcetypes**, 28 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `stash` | 28 |
