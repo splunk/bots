@@ -172,6 +172,53 @@ done
 
 Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
 
+## Data sourcetypes included
+
+The following **40 sourcetypes** (3,126,709 events) were reported by the source Splunk instance for `index=main` (restored as `index=botsv5-gcp-main`). Counts reflect the supplied inventory and may differ on another restoration.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `gapps:spreadsheet` | 2,442,225 |
+| `google:gcp:pubsub:message` | 341,523 |
+| `gapps:admin:directory:users` | 50,924 |
+| `gapps:report:chat:modular_input_result` | 25,466 |
+| `gapps:usage:user:api` | 22,824 |
+| `gapps:usage:customer:api` | 20,530 |
+| `gapps:report:admin:modular_input_result` | 12,734 |
+| `gapps:report:calendar:modular_input_result` | 12,734 |
+| `gapps:report:groups:modular_input_result` | 12,734 |
+| `gapps:report:mobile:modular_input_result` | 12,734 |
+| `gapps:report:access_transparency:modular_input_result` | 12,733 |
+| `gapps:report:drive:modular_input_result` | 12,733 |
+| `gapps:report:gcp:modular_input_result` | 12,733 |
+| `gapps:report:gplus:modular_input_result` | 12,733 |
+| `gapps:report:groups_enterprise:modular_input_result` | 12,733 |
+| `gapps:report:jamboard:modular_input_result` | 12,733 |
+| `gapps:report:login:modular_input_result` | 12,733 |
+| `gapps:report:meet:modular_input_result` | 12,733 |
+| `gapps:report:rules:modular_input_result` | 12,733 |
+| `gapps:report:saml:modular_input_result` | 12,733 |
+| `gapps:report:token:modular_input_result` | 12,733 |
+| `gapps:report:user_accounts:modular_input_result` | 12,733 |
+| `gapps:chrome:api` | 12,731 |
+| `google:gcp:buckets:jsondata` | 2,511 |
+| `google:gcp:pubsub:audit:auth` | 2,492 |
+| `gapps:report:drive` | 1,235 |
+| `gmail:enforce:audit:ta:output` | 240 |
+| `gmail:audit:headers` | 111 |
+| `gsuite:directory:user` | 52 |
+| `gapps:usage:user` | 36 |
+| `GSuiteForSplunk:error` | 19 |
+| `gapps:report:token` | 16 |
+| `gapps:report:mobile` | 11 |
+| `google:gcp:buckets:data` | 10 |
+| `gapps:usage:customer` | 9 |
+| `google:gcp:buckets:metadata` | 4 |
+| `GitLab:Event` | 3 |
+| `GitLab:Project` | 3 |
+| `GitLab:Commit` | 1 |
+| `GitLab:Issue` | 1 |
+
 ## Security and content notice
 
 BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
