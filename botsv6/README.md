@@ -12,7 +12,7 @@ Each scenario has its own README with download links, index definitions, and res
 | --- | --- | --- | --- |
 | ESS | The Enterprise Security Scenario | `botsv6-ess-` | [ess/README.md](ess/README.md) |
 | FIT | The Fraud and Insider Threat Scenario | `botsv6-fit-` | [fit/README.md](fit/README.md) |
-| APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` | Not yet available |
+| APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` | [apt/README.md](apt/README.md) |
 | MCT | The Multi-Cloud Security Scenario | `botsv6-mct-` | Not yet available |
 
 ## Index naming
