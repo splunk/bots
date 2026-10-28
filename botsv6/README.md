@@ -42,4 +42,4 @@ These guides document recovery of the original event buckets into dedicated dest
 
 ## Authors
 
-Written by Tom Smit, Simon O'Brien, John Stoner, Michael Natkin, Shannon Davis, Lily "LLZ" Lee, James Young, and Drew Church.
+Written in 2021 by Tom Smit, Simon O'Brien, John Stoner, Michael Natkin, Shannon Davis, Lily "LLZ" Lee, James Young, and Drew Church.
