@@ -10,7 +10,7 @@ Each scenario has its own README with download links, index definitions, and res
 
 | Scenario | Title | Index prefix | Restore guide |
 | --- | --- | --- | --- |
-| ESS | The Enterprise Security Scenario | `botsv7-ess-` | Not yet available |
+| ESS | The Enterprise Security Scenario | `botsv7-ess-` | [ess/README.md](ess/README.md) |
 | APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` (reused from v6) | [apt/README.md](apt/README.md) |
 | SIM | The Splunk Infrastructure Migration Scenario | `botsv7-sim-` | Not yet available |
 
