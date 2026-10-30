@@ -11,12 +11,12 @@ Each scenario has its own README with download links, index definitions, and res
 | Scenario | Title | Index prefix | Restore guide |
 | --- | --- | --- | --- |
 | ESS | The Enterprise Security Scenario | `botsv7-ess-` | Not yet available |
-| APT | The Advanced Persistent Threat Scenario | `botsv7-apt-` | Not yet available |
+| APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` (reused from v6) | [apt/README.md](apt/README.md) |
 | SIM | The Splunk Infrastructure Migration Scenario | `botsv7-sim-` | Not yet available |
 
 ## Index naming
 
-Every scenario is restored into indexes named `botsv7-<scenario>-<index>`, such as `botsv7-ess-main` or `botsv7-ess-notable`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's indexes, and to keep scenarios separate from one another. Some scenarios include several additional indexes; see each scenario's README.
+Every scenario is restored into indexes named `botsv7-<scenario>-<index>`, such as `botsv7-ess-main` or `botsv7-ess-notable`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's indexes, and to keep scenarios separate from one another. Some scenarios include several additional indexes; see each scenario's README. The APT scenario is the exception: it reuses the BOTS v6 APT dataset, so it is restored into the `botsv6-apt-*` indexes rather than new `botsv7-apt-*` indexes.
 
 To search across everything you have restored:
 
