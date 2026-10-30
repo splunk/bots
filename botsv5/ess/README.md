@@ -11,7 +11,7 @@ The pre-indexed BOTS v5 ESS dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v5 ESS | Pre-indexed buckets, restored as `botsv5-ess-main`, `botsv5-ess-ar`, `botsv5-ess-notable`, `botsv5-ess-risk` | `.tgz` archive | [Download BOTS v5 ESS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess.tgz) |
-| BOTS v5 ESS Q&A | Questions and answers for the BOTS v5 ESS exercise | `.zip` archive | [Download BOTS v5 ESS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-ess-qa.zip) |
+| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-ess.tgz`. The archive is about 3.4 GB (about 5.6 GB extracted). Its SHA-256 checksum is `051569b944564b78bed3500fe82d65c77ce33fcabfb96b18399ebfb9cbcda224`. The link should be finalized after uploading to S3.
 

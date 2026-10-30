@@ -11,7 +11,7 @@ The pre-indexed BOTS v6 FIT dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v6 FIT | Pre-indexed buckets, restored as `botsv6-fit-main`, `botsv6-fit-audit`, `botsv6-fit-dtex`, `botsv6-fit-frothly_events`, `botsv6-fit-notable`, `botsv6-fit-risk`, `botsv6-fit-ueba` | `.tgz` archive | [Download BOTS v6 FIT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-fit.tgz) |
-| BOTS v6 FIT Q&A | Questions and answers for the BOTS v6 FIT exercise | `.zip` archive | [Download BOTS v6 FIT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-fit-qa.zip) |
+| BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-fit.tgz`. The archive is about 2.1 GB (about 3.8 GB extracted). Its SHA-256 checksum is `328d524e240ba464b5c7e511c22e2ae756db2ab5a23f0d73a62b26f62eba29ae`. The link should be finalized after uploading to S3.
 

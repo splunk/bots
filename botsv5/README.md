@@ -17,6 +17,14 @@ Each scenario has its own README with download links, index definitions, and res
 | RWI | The Remote Work Scenario | `botsv5-rwi-` | [rwi/README.md](rwi/README.md) |
 | AWS | AWS Scenario | `botsv5-aws-` | [aws/README.md](aws/README.md) |
 
+## Questions and answers
+
+The Q&A for all BOTS v5 scenarios is distributed as a single zip file containing a separate `.xls` file for each scenario. The download URL below is a **placeholder** and must be updated before publication.
+
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios | `.zip` archive | [Download BOTS v5 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-qa.zip) |
+
 ## Index naming
 
 Every scenario is restored into indexes named `botsv5-<scenario>-<index>`, such as `botsv5-gcp-main` (the GCP scenario's only index) or `botsv5-aws-main`, `botsv5-aws-notable`, and `botsv5-aws-risk`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's `main`, `notable`, or `risk` indexes, and to keep scenarios separate from one another. The AWS scenario includes additional indexes; see its README.

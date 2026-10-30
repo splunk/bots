@@ -11,7 +11,7 @@ The pre-indexed BOTS v6 APT dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v6 APT | Pre-indexed buckets, restored as `botsv6-apt-main`, `botsv6-apt-dtex`, `botsv6-apt-notable` | `.tgz` archive | [Download BOTS v6 APT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-apt.tgz) |
-| BOTS v6 APT Q&A | Questions and answers for the BOTS v6 APT exercise | `.zip` archive | [Download BOTS v6 APT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-apt-qa.zip) |
+| BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-apt.tgz`. The archive is about 1.9 GB (about 3.1 GB extracted). Its SHA-256 checksum is `13ec2103e11939485a32904bcf3ed826872e27e39abab003eb434d3976b53c2d`. The link should be finalized after uploading to S3.
 

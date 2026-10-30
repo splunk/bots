@@ -15,6 +15,14 @@ Each scenario has its own README with download links, index definitions, and res
 | APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` | [apt/README.md](apt/README.md) |
 | MCT | The Multi-Cloud Security Scenario | `botsv6-mct-` | [mct/README.md](mct/README.md) |
 
+## Questions and answers
+
+The Q&A for all BOTS v6 scenarios is distributed as a single zip file containing a separate `.xls` file for each scenario. The download URL below is a **placeholder** and must be updated before publication.
+
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios | `.zip` archive | [Download BOTS v6 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-qa.zip) |
+
 ## Index naming
 
 Every scenario is restored into indexes named `botsv6-<scenario>-<index>`, such as `botsv6-ess-apt` or `botsv6-ess-notable`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's indexes, and to keep scenarios separate from one another. Some scenarios include several additional indexes; see each scenario's README.

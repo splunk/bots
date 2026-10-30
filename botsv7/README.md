@@ -14,6 +14,14 @@ Each scenario has its own README with download links, index definitions, and res
 | APT | The Advanced Persistent Threat Scenario | `botsv6-apt-` (reused from v6) | [apt/README.md](apt/README.md) |
 | SIM | The Splunk Infrastructure Migration Scenario | `botsv7-sim-` | Not yet available |
 
+## Questions and answers
+
+The Q&A for all BOTS v7 scenarios is distributed as a single zip file containing a separate `.xls` file for each scenario. The download URL below is a **placeholder** and must be updated before publication.
+
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios | `.zip` archive | [Download BOTS v7 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv7/botsv7-qa.zip) |
+
 ## Index naming
 
 Every scenario is restored into indexes named `botsv7-<scenario>-<index>`, such as `botsv7-ess-main` or `botsv7-ess-notable`. **This restoration intentionally uses new logical index names** to avoid interfering with an existing installation's indexes, and to keep scenarios separate from one another. Some scenarios include several additional indexes; see each scenario's README. The APT scenario is the exception: it reuses the BOTS v6 APT dataset, so it is restored into the `botsv6-apt-*` indexes rather than new `botsv7-apt-*` indexes.

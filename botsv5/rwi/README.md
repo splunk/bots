@@ -11,7 +11,7 @@ The pre-indexed BOTS v5 RWI dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v5 RWI | Pre-indexed buckets, restored as `botsv5-rwi-main` | `.tgz` archive | [Download BOTS v5 RWI dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-rwi.tgz) |
-| BOTS v5 RWI Q&A | Questions and answers for the BOTS v5 RWI exercise | `.zip` archive | [Download BOTS v5 RWI Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-rwi-qa.zip) |
+| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-rwi.tgz`. The archive is about 1.7 GB (about 2.7 GB extracted). Its SHA-256 checksum is `bc27c1a3093994757e34a982be686e2c4cd73a1266e3a842c09d24311d97cd11`. The link should be finalized after uploading to S3.
 
