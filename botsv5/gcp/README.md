@@ -11,7 +11,7 @@ The pre-indexed BOTS v5 GCP dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v5 GCP | Pre-indexed buckets, restored as `botsv5-gcp-main` | `.tgz` archive | [Download BOTS v5 GCP dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp.tgz) |
-| BOTS v5 GCP Q&A | Questions and answers for the BOTS v5 GCP exercise | PDF | [Download BOTS v5 GCP Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp-qa.pdf) |
+| BOTS v5 GCP Q&A | Questions and answers for the BOTS v5 GCP exercise | `.zip` archive | [Download BOTS v5 GCP Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-gcp-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-gcp.tgz`. The archive is about 207 MB (about 337 MB extracted). Its SHA-256 checksum is `ce04cc6002185024085848380c66d3aaa14efc32d57afc8d0f4d4aadb7bc57fd`. The link should be finalized after uploading to S3.
 

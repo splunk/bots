@@ -11,7 +11,7 @@ The pre-indexed BOTS v6 ESS dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v6 ESS | Pre-indexed buckets, restored as `botsv6-ess-apt`, `botsv6-ess-apt_dtex`, `botsv6-ess-frothly_events`, `botsv6-ess-insider`, `botsv6-ess-notable`, `botsv6-ess-risk`, `botsv6-ess-toads` | `.tgz` archive | [Download BOTS v6 ESS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-ess.tgz) |
-| BOTS v6 ESS Q&A | Questions and answers for the BOTS v6 ESS exercise | PDF | [Download BOTS v6 ESS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-ess-qa.pdf) |
+| BOTS v6 ESS Q&A | Questions and answers for the BOTS v6 ESS exercise | `.zip` archive | [Download BOTS v6 ESS Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-ess-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-ess.tgz`. The archive is about 6.1 GB (about 10.6 GB extracted). Its SHA-256 checksum is `9d70218d2681e8a3fb4b4949e4ff707fe9baa92225e4f82584b94bc82e85c742`. The link should be finalized after uploading to S3.
 

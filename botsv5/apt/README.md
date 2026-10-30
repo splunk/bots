@@ -11,7 +11,7 @@ The pre-indexed BOTS v5 APT dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v5 APT | Pre-indexed buckets, restored as `botsv5-apt-main`, `botsv5-apt-notable`, `botsv5-apt-risk` | `.tgz` archive | [Download BOTS v5 APT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-apt.tgz) |
-| BOTS v5 APT Q&A | Questions and answers for the BOTS v5 APT exercise | PDF | [Download BOTS v5 APT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-apt-qa.pdf) |
+| BOTS v5 APT Q&A | Questions and answers for the BOTS v5 APT exercise | `.zip` archive | [Download BOTS v5 APT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-apt-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-apt.tgz`. The archive is about 974 MB. Its SHA-256 checksum is `2ef05ceea74edc4de21a7ead0ad816187d541629474306186f55c603dec19b12`. The link should be finalized after uploading to S3.
 

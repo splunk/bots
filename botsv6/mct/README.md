@@ -11,7 +11,7 @@ The pre-indexed BOTS v6 MCT dataset will be hosted in an Amazon S3 bucket. The d
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v6 MCT | Pre-indexed buckets, restored as `botsv6-mct-main` | `.tgz` archive | [Download BOTS v6 MCT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-mct.tgz) |
-| BOTS v6 MCT Q&A | Questions and answers for the BOTS v6 MCT exercise | PDF | [Download BOTS v6 MCT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-mct-qa.pdf) |
+| BOTS v6 MCT Q&A | Questions and answers for the BOTS v6 MCT exercise | `.zip` archive | [Download BOTS v6 MCT Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-mct-qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-mct.tgz`. The archive is about 3.1 GB (about 5.0 GB extracted). Its SHA-256 checksum is `343b492a72abf370dbcd969e63cc2531bc7116c4e39dc1a2d77cf2e0127cc1df`. The link should be finalized after uploading to S3.
 
