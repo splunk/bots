@@ -333,3 +333,7 @@ BOTS datasets simulate security incidents and may contain realistic indicators, 
 ## Scope of this guide
 
 This README documents recovery of the original event buckets into dedicated destination indexes. It does not include the original KV Store, configuration files, saved searches, dashboards, data models, or required apps/add-ons. Those components may be needed to reproduce the complete original BOTS v8 experience.
+
+## Authors
+
+Written in 2023 by Tom Smit, Shannon Davis, James Young, David Gamer, Simon O'Brien, Tim Hard, and Matthew Moore.
