@@ -25,7 +25,7 @@ The pre-indexed BOTS v8 dataset will be hosted in an Amazon S3 bucket. The downl
 | BOTS v8 | Pre-indexed buckets shared by the APT, ESS, and WAA scenarios, restored as `botsv8-main`, `botsv8-battleship`, `botsv8-mc_aux_incidents`, `botsv8-notable`, `botsv8-risk` | `.tgz` archive | [Download BOTS v8 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv8/botsv8.tgz) |
 | BOTS v8 Q&A | Questions and answers for all BOTS v8 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v8 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv8/botsv8-qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv8.tgz`. The archive is about 2.4 GB (about 3.5 GB extracted). Its SHA-256 checksum is `51679c3d8a0e376ad46c6c1357faeb36b45fa5092899da57f6f6eca05c694e52`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv8.tgz`. The archive is about 2.4 GB (about 3.5 GB extracted). Its SHA-256 checksum is `996508571793349744026154c957a1543091333798bff9bb1a0ea952ff56a1bf`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
@@ -70,7 +70,7 @@ These instructions expect archive paths like `defaultdb/db/db_...`, `battleship/
 
 ```bash
 shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
-# expected: 51679c3d8a0e376ad46c6c1357faeb36b45fa5092899da57f6f6eca05c694e52
+# expected: 996508571793349744026154c957a1543091333798bff9bb1a0ea952ff56a1bf
 ```
 
 ## 2. Configure dedicated indexes
