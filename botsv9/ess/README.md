@@ -13,7 +13,7 @@ The pre-indexed BOTS v9 ESS/SAA dataset will be hosted in an Amazon S3 bucket. T
 | BOTS v9 ESS/SAA | Pre-indexed buckets, restored as `botsv9-ess-main`, `botsv9-ess-notable`, `botsv9-ess-risk` | `.tgz` archive | [Download BOTS v9 ESS/SAA dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-ess.tgz) |
 | BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-ess.tgz`. The archive is about 181 MB (about 305 MB extracted). Its SHA-256 checksum is `4d68f7ba3d8ca496b27f660b77c892c320bcce19cd506edfcd2279f02d920859`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-ess.tgz`. The archive is about 181 MB (about 305 MB extracted). Its SHA-256 checksum is `229df3895b302dbaed6076435808bca1b64a593bf794482add5deef24a4b2c9d`. The link should be finalized after uploading to S3.
 
 ## Index naming
 
@@ -56,7 +56,7 @@ These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/d
 
 ```bash
 shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
-# expected: 4d68f7ba3d8ca496b27f660b77c892c320bcce19cd506edfcd2279f02d920859
+# expected: 229df3895b302dbaed6076435808bca1b64a593bf794482add5deef24a4b2c9d
 ```
 
 ## 2. Configure dedicated indexes
