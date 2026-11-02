@@ -46,3 +46,7 @@ BOTS datasets simulate security incidents and may contain realistic indicators, 
 ## Scope
 
 These guides document recovery of the original event buckets into dedicated destination indexes. They do not include the original KV Store, configuration files, saved searches, dashboards, data models, or required apps/add-ons. Those components may be needed to reproduce the complete original BOTS v9 experience.
+
+## Authors
+
+Written in 2024 by Akash Kadakia, Brandon Tansey, David Gamer, Dean Luxton, James Young, Jit Arora, Laura Blystone, Matthew Moore, Raymond Huang, Ryan Lait, Simon O'Brien, Tim Hard, Tom Smit, and Tony Iacobelli.
