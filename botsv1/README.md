@@ -38,7 +38,7 @@ Download the pre-indexed dataset and Q&A from the table below.
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v1 | Full BOTS v1 dataset (6.5GB compressed, SHA-256 `0d6770d9d832c6ea9ae1d46974491b8487bb7303665e5f10154e17bc3c762c7b`) | Pre-indexed Splunk `.tgz` | [Download BOTS v1 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv1/botsv1.tgz) |
-| BOTS v1 Q&A | Questions and answers for the BOTS v1 exercise | `.zip` archive | [Download BOTS v1 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv1/botsv1qa.zip) |
+| BOTS v1 Q&A | Questions and answers for the BOTS v1 exercise | `.zip` archive | [Download BOTS v1 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv1/BOTSv1qa.zip) |
 
 
 ## Restoring the dataset into a dedicated index

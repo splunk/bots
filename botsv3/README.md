@@ -6,7 +6,7 @@ A sample security dataset and CTF platform for information security professional
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
 | BOTS v3 | Full BOTS v3 dataset (335MB, SHA-256 `bc7519b649a61564d83c435a10cc8652c89aad3614d6053d0ace653861a4bd92`) | Pre-indexed Splunk `.tgz` | [Download BOTS v3 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv3/botsv3.tgz) |
-| BOTS v3 Q&A | Questions and answers for the BOTS v3 exercise | `.zip` archive | [Download BOTS v3 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv3/botsv3qa.zip) |
+| BOTS v3 Q&A | Questions and answers for the BOTS v3 exercise | `.zip` archive | [Download BOTS v3 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv3/BOTSv3qa.zip) |
 
 ## Restoring the dataset into a dedicated index
 
