@@ -1,0 +1,226 @@
+# BOTS v9 Midnight Bliss: Pre-indexed Dataset Recovery
+
+This guide restores the BOTS v9 Midnight Bliss scenario into a dedicated index on Splunk Enterprise 10.x. See the [BOTS v9 overview](../README.md) for the other scenarios, licensing, and content notices.
+
+> Compatibility: Test on a disposable Splunk 10.x instance first. Bucket compatibility across versions is not guaranteed. Preserve the original archive and check `splunkd.log` for errors.
+
+## Download
+
+The pre-indexed BOTS v9 Midnight Bliss dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+
+| Dataset | Description | Format | Download |
+| --- | --- | --- | --- |
+| BOTS v9 Midnight Bliss | Pre-indexed buckets, restored as `botsv9-midnight-main` | `.tgz` archive | [Download BOTS v9 Midnight Bliss dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-midnight-bliss.tgz) |
+| BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-qa.zip) |
+
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-midnight-bliss.tgz`. The archive is about 1.2 GB (about 1.9 GB extracted). Its SHA-256 checksum is `ef3e6bdeac5be27013e0ad445f22ad96d2f5eb5b590d79c14a33786492dfe4d5`. The link should be finalized after uploading to S3.
+
+## Index naming
+
+This restoration intentionally uses a new logical index name to avoid interfering with an existing installation's indexes.
+
+| Archive directory | Restored logical index | Destination directory | Size | Buckets |
+| --- | --- | --- | ---: | ---: |
+| `defaultdb/` | `botsv9-midnight-main` | `$SPLUNK_DB/botsv9-midnight-main/` | 1.9 GB | 15 |
+
+The `defaultdb/` archive directory is restored as `botsv9-midnight-main`.
+
+The original archive directory names are unchanged. The new name applies to the index **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
+
+The archive's `datamodel_summary/` directory (under `defaultdb/`) holds only acceleration manifest files and is not imported by this procedure.
+
+## Prerequisites
+
+- Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
+- Shell access, sufficient disk space (about 1.9 GB for the extracted staging copy, plus the same again for the restored index, plus the 1.2 GB archive itself; roughly 5 GB in total), and a backup of the destination.
+- The recovery archive, named `botsv9-midnight-bliss.tgz` in these examples.
+- The ability to stop Splunk before copying index buckets.
+
+The commands below assume `/opt/splunk`; change `SPLUNK_HOME` if needed. **Do not run this procedure on an original recovery AMI.** On indexer clusters, deploy index definitions through the cluster manager instead of editing individual peers.
+
+## 1. Verify the archive
+
+```bash
+export SPLUNK_HOME=/opt/splunk
+export SPLUNK_DB="$SPLUNK_HOME/var/lib/splunk"
+export ARCHIVE=/tmp/botsv9-midnight-bliss.tgz
+
+gzip -t "$ARCHIVE"
+tar -tzf "$ARCHIVE" | head -40
+tar -tzf "$ARCHIVE" | grep -E '^[^/]+/db/db_[^/]+/$'
+```
+
+These instructions expect archive paths like `defaultdb/db/db_...`. The archive should contain 15 bucket directories. Its journals are zstd-compressed (`rawdata/journal.zst`) rather than `journal.gz`. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: ef3e6bdeac5be27013e0ad445f22ad96d2f5eb5b590d79c14a33786492dfe4d5
+```
+
+## 2. Configure the dedicated index
+
+Add this stanza to `$SPLUNK_HOME/etc/system/local/indexes.conf`, merging with any existing contents rather than replacing the file:
+
+```ini
+[botsv9-midnight-main]
+homePath = $SPLUNK_DB/botsv9-midnight-main/db
+coldPath = $SPLUNK_DB/botsv9-midnight-main/colddb
+thawedPath = $SPLUNK_DB/botsv9-midnight-main/thaweddb
+frozenTimePeriodInSecs = 1893456000
+maxTotalDataSizeMB = 102400
+```
+
+The retention period is approximately 60 years. The 100 GiB per-index size limit is an example, **not** a reservation of disk space. The restored data is about 1.9 GB, so it fits well under the limit. Adjust it for your environment. Size limits can freeze buckets even when age-based retention is long. Keep backups.
+
+Check the effective configuration without starting Splunk:
+
+```bash
+"$SPLUNK_HOME/bin/splunk" btool indexes list botsv9-midnight-main --debug | \
+  grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
+```
+
+## 3. Stop Splunk and stage the archive
+
+```bash
+sudo "$SPLUNK_HOME/bin/splunk" stop
+ps -ef | grep '[s]plunkd'
+
+sudo mkdir -p /tmp/botsv9-midnight-stage
+sudo tar -xzf "$ARCHIVE" -C /tmp/botsv9-midnight-stage
+sudo find /tmp/botsv9-midnight-stage -type d -name 'db_*' | wc -l   # expect 15
+```
+
+Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
+
+## 4. Copy buckets into the new index
+
+These commands copy the original `defaultdb` directory's `db` and `colddb` buckets to the new dedicated index. They **refuse to copy into nonempty destination tiers**, rather than risking a bucket collision or accidental merge.
+
+```bash
+set -e
+
+for mapping in 'defaultdb:botsv9-midnight-main'; do
+  srcname=${mapping%%:*}
+  dstname=${mapping#*:}
+
+  for tier in db colddb; do
+    src="/tmp/botsv9-midnight-stage/$srcname/$tier"
+    dst="$SPLUNK_DB/$dstname/$tier"
+    [ -d "$src" ] || continue
+
+    sudo mkdir -p "$dst"
+    if [ -n "$(sudo find "$dst" -mindepth 1 -maxdepth 1 -print -quit)" ]; then
+      echo "ERROR: destination is not empty: $dst" >&2
+      exit 1
+    fi
+    sudo cp -a "$src/." "$dst/"
+  done
+
+  sudo mkdir -p "$SPLUNK_DB/$dstname/thaweddb"
+done
+```
+
+Ensure the copied directories and files are owned by the Splunk service account. For example, **if Splunk runs as `splunk`**:
+
+```bash
+sudo chown -R splunk:splunk "$SPLUNK_DB/botsv9-midnight-main"
+```
+
+The archive's `datamodel_summary/` directory is intentionally not copied. Do not import it as event buckets.
+
+## 5. Start Splunk and validate
+
+```bash
+sudo "$SPLUNK_HOME/bin/splunk" start
+```
+
+Use an all-time search because the events are historical:
+
+```spl
+| tstats count WHERE index=botsv9-midnight-main earliest=0 BY sourcetype
+| sort -count
+```
+
+Inspect registered buckets:
+
+```spl
+| dbinspect index=botsv9-midnight-main
+| stats count AS buckets sum(eventCount) AS events BY index
+```
+
+If data does not appear, check logs before attempting another import:
+
+```bash
+grep -Ei 'bucket|tsidx|journal|corrupt|incompatible|freeze|frozen' \
+  "$SPLUNK_HOME/var/log/splunk/splunkd.log" | tail -100
+```
+
+Do not delete the original archive or repeatedly restart against the only copy of the buckets. If Splunk 10.x rejects the files, an intermediate compatible Splunk version or another supported migration method may be necessary.
+
+## 6. Verify retention
+
+```bash
+"$SPLUNK_HOME/bin/splunk" btool indexes list botsv9-midnight-main --debug | \
+  grep -E 'homePath|coldPath|thawedPath|frozenTimePeriodInSecs|maxTotalDataSizeMB'
+```
+
+Check `splunkd.log` for freezing, deletion, or bucket-validation errors before declaring the restoration complete.
+
+## Data sourcetypes included
+
+The following sourcetypes were reported by the source Splunk instance for the index whose buckets are restored by this procedure. Counts reflect the supplied inventory and may differ on another restoration.
+
+### `index=main` (restored as `index=botsv9-midnight-main`)
+
+**44 sourcetypes**, 1,492,574 events.
+
+| Sourcetype | Events |
+| --- | ---: |
+| `XmlWinEventLog` | 764,177 |
+| `XmlWinEventLog:Microsoft-Windows-PowerShell/Operational` | 322,046 |
+| `XmlWinEventLog:Microsoft-Windows-Sysmon/Operational` | 128,555 |
+| `IntuneManagementExtensionLogs` | 60,555 |
+| `stream:ip` | 41,167 |
+| `stream:ldap` | 39,825 |
+| `azure:monitor:aad` | 30,867 |
+| `ActiveDirectory` | 24,094 |
+| `stream:udp` | 22,616 |
+| `stream:tcp` | 18,216 |
+| `stream:dns` | 16,457 |
+| `o365:management:activity` | 8,769 |
+| `stream:http` | 6,466 |
+| `XmlWinEventLog:Microsoft-Windows-WMI-Activity/Operational` | 3,300 |
+| `WindowsUpdateLog` | 2,074 |
+| `XmlWinEventLog:Microsoft-Windows-TaskScheduler/Operational` | 758 |
+| `Script:ListeningPorts` | 516 |
+| `XmlWinEventLog:Microsoft-Windows-Shell-Core/Operational` | 389 |
+| `XmlWinEventLog:Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational` | 358 |
+| `azure:aad:user` | 252 |
+| `XmlWinEventLog:Microsoft-Windows-DNSServer/Audit` | 148 |
+| `XmlWinEventLog:Microsoft-Windows-Bits-Client/Operational` | 116 |
+| `azure:topology` | 94 |
+| `powershell` | 90 |
+| `azure:monitor:activity` | 89 |
+| `XmlWinEventLog:Microsoft-Windows-WinRM/Operational` | 82 |
+| `XmlWinEventLog:Microsoft-Windows-Security-Mitigations/KernelMode` | 66 |
+| `o365:reporting:messagetrace` | 61 |
+| `Script:InstalledApps` | 51 |
+| `XmlWinEventLog:Microsoft-Windows-AAD/Operational` | 51 |
+| `XmlWinEventLog:Microsoft-Windows-TerminalServices-RDPClient/Operational` | 50 |
+| `XmlWinEventLog:Microsoft-Windows-Windows Firewall With Advanced Security/Firewall` | 46 |
+| `XmlWinEventLog:Microsoft-Windows-Kernel-PnP/Configuration` | 30 |
+| `XmlWinEventLog:Microsoft-Windows-TerminalServices-LocalSessionManager/Operational` | 29 |
+| `azure:aad:device` | 24 |
+| `XmlWinEventLog:Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational` | 20 |
+| `Script:TimesyncConfiguration` | 17 |
+| `Script:TimesyncStatus` | 17 |
+| `ms:o365:email` | 17 |
+| `stream:icmp` | 12 |
+| `Script:GetEndpointInfo` | 2 |
+| `Script:NetworkConfiguration` | 2 |
+| `XmlWinEventLog:Microsoft-Windows-CodeIntegrity/Operational` | 2 |
+| `XmlWinEventLog:Microsoft-Windows-BitLocker/BitLocker Management` | 1 |
+
+## Security and content notice
+
+BOTS datasets simulate security incidents and may contain realistic indicators, credentials used in lab scenarios, profanity, or other potentially sensitive or offensive content. Use in an appropriately isolated lab environment.
