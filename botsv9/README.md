@@ -11,7 +11,7 @@ Each scenario has its own README with download links, index definitions, and res
 | Scenario | Title | Index prefix | Restore guide |
 | --- | --- | --- | --- |
 | ESS/SAA | The Enterprise Security and Attack Analyzer Scenario | `botsv9-ess-` | [ess/README.md](ess/README.md) |
-| Serverless Surprise | The Serverless Surprise Scenario | Not yet available | Not yet available |
+| Serverless Surprise | The Serverless Surprise Scenario | `botsv9-serverless-` | [serverless/README.md](serverless/README.md) |
 | Midnight Bliss | The Midnight Bliss Scenario | Not yet available | Not yet available |
 
 ## Questions and answers
