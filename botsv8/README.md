@@ -18,11 +18,11 @@ The Q&A zip contains a separate `.xls` file for each scenario.
 
 ## Download
 
-The pre-indexed BOTS v8 dataset is hosted in an Amazon S3 bucket. The dataset download URL below is a **placeholder** and must be updated before publication; the Q&A link is live.
+The pre-indexed BOTS v8 dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v8 | Pre-indexed buckets shared by the APT, ESS, and WAA scenarios, restored as `botsv8-main`, `botsv8-battleship`, `botsv8-mc_aux_incidents`, `botsv8-notable`, `botsv8-risk` | `.tgz` archive | [Download BOTS v8 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv8/botsv8.tgz) |
+| BOTS v8 | Pre-indexed buckets shared by the APT, ESS, and WAA scenarios, restored as `botsv8-main`, `botsv8-battleship`, `botsv8-mc_aux_incidents`, `botsv8-notable`, `botsv8-risk` | `.tgz` archive | [Download BOTS v8 dataset](https://splunk-bots-datasets.s3.us-east-1.amazonaws.com/BOTSv8/botsv8.tgz) |
 | BOTS v8 Q&A | Questions and answers for all BOTS v8 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v8 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv8/BOTSv8qa.zip) |
 
 Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv8.tgz`. The archive is about 2.4 GB (about 3.5 GB extracted). Its SHA-256 checksum is `996508571793349744026154c957a1543091333798bff9bb1a0ea952ff56a1bf`.
