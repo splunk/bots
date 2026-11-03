@@ -6,14 +6,14 @@ This guide restores historical BOTS v4 bucket files from Splunk Enterprise 7.3.1
 
 ## Download
 
-The pre-indexed BOTS v4 dataset will be hosted in an Amazon S3 bucket. The download URL below is a **placeholder** and must be updated before publication.
+The pre-indexed BOTS v4 dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v4 | Original `main`, `notable`, and `risk` index buckets, restored as `botsv4-main`, `botsv4-notable`, and `botsv4-risk` | `.tar.gz` archive | [Download BOTS v4 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-recovery.tar.gz) |
-| BOTS v4 Q&A | Questions and answers for the BOTS v4 exercise | `.zip` archive | [Download BOTS v4 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv4/botsv4-qa.zip) |
+| BOTS v4 | Original `main`, `notable`, and `risk` index buckets, restored as `botsv4-main`, `botsv4-notable`, and `botsv4-risk` | `.tgz` archive | [Download BOTS v4 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv4/botsv4.tgz) |
+| BOTS v4 Q&A | Questions and answers for the BOTS v4 exercise | `.zip` archive | [Download BOTS v4 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv4/BOTSv4qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4-recovery.tar.gz`. The link, archive size, and checksum should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4.tgz`.
 
 ## Index naming
 
@@ -35,7 +35,7 @@ KV Store, original configurations, apps, and add-ons are not included.
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
 - Shell access, sufficient disk space, and a backup of the destination.
-- The recovery archive, named `botsv4-recovery.tar.gz` in these examples.
+- The recovery archive, named `botsv4.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
 The commands below assume `/opt/splunk`; change `SPLUNK_HOME` if needed. **Do not run this procedure on the original recovery AMI.** On indexer clusters, deploy index definitions through the cluster manager instead of editing individual peers.
@@ -45,7 +45,7 @@ The commands below assume `/opt/splunk`; change `SPLUNK_HOME` if needed. **Do no
 ```bash
 export SPLUNK_HOME=/opt/splunk
 export SPLUNK_DB="$SPLUNK_HOME/var/lib/splunk"
-export ARCHIVE=/tmp/botsv4-recovery.tar.gz
+export ARCHIVE=/tmp/botsv4.tgz
 
 gzip -t "$ARCHIVE"
 tar -tzf "$ARCHIVE" | head -40

@@ -6,14 +6,14 @@ This guide restores the BOTS v5 AWS scenario into 9 dedicated indexes on Splunk 
 
 ## Download
 
-The pre-indexed BOTS v5 AWS dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v5 AWS dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 AWS | Pre-indexed buckets, restored as `botsv5-aws-main`, `botsv5-aws-notable`, `botsv5-aws-risk` and six additional AWS indexes | `.tgz` archive | [Download BOTS v5 AWS dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-aws.tgz) |
-| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-qa.zip) |
+| BOTS v5 AWS | Pre-indexed buckets, restored as `botsv5-aws-main`, `botsv5-aws-notable`, `botsv5-aws-risk` and six additional AWS indexes | `.tgz` archive | [Download BOTS v5 AWS dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/botsv5-aws.tgz) |
+| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/BOTSv5qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The archive is about 42 MB. Its SHA-256 checksum is `4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The archive is about 42 MB. Its SHA-256 checksum is `4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78`.
 
 ## Index naming
 

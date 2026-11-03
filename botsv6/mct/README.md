@@ -6,14 +6,14 @@ This guide restores the BOTS v6 MCT scenario into a dedicated index on Splunk En
 
 ## Download
 
-The pre-indexed BOTS v6 MCT dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v6 MCT dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v6 MCT | Pre-indexed buckets, restored as `botsv6-mct-main` | `.tgz` archive | [Download BOTS v6 MCT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-mct.tgz) |
-| BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-qa.zip) |
+| BOTS v6 MCT | Pre-indexed buckets, restored as `botsv6-mct-main` | `.tgz` archive | [Download BOTS v6 MCT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-mct.tgz) |
+| BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/BOTSv6qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-mct.tgz`. The archive is about 3.1 GB (about 5.0 GB extracted). Its SHA-256 checksum is `343b492a72abf370dbcd969e63cc2531bc7116c4e39dc1a2d77cf2e0127cc1df`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-mct.tgz`. The archive is about 3.1 GB (about 5.0 GB extracted). Its SHA-256 checksum is `343b492a72abf370dbcd969e63cc2531bc7116c4e39dc1a2d77cf2e0127cc1df`.
 
 ## Index naming
 

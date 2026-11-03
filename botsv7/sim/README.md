@@ -6,14 +6,14 @@ This guide restores the BOTS v7 SIM (Splunk Infrastructure Migration) scenario i
 
 ## Download
 
-The pre-indexed BOTS v7 SIM dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v7 SIM dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v7 SIM | Pre-indexed buckets, restored as `botsv7-sim-main`, `botsv7-sim-em_metrics` | `.tgz` archive | [Download BOTS v7 SIM dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv7/botsv7-sim.tgz) |
-| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv7/botsv7-qa.zip) |
+| BOTS v7 SIM | Pre-indexed buckets, restored as `botsv7-sim-main`, `botsv7-sim-em_metrics` | `.tgz` archive | [Download BOTS v7 SIM dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/botsv7-sim.tgz) |
+| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/BOTSv7qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-sim.tgz`. The archive is about 6.3 GB (about 12.9 GB extracted). Its SHA-256 checksum is `5fea4f79da6dcfc7cbc251cd1b2f8a9214e6a1e0874f3b6deae7c600430d6dee`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-sim.tgz`. The archive is about 6.3 GB (about 12.9 GB extracted). Its SHA-256 checksum is `5fea4f79da6dcfc7cbc251cd1b2f8a9214e6a1e0874f3b6deae7c600430d6dee`.
 
 ## Index naming
 

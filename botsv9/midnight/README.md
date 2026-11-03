@@ -6,14 +6,14 @@ This guide restores the BOTS v9 Midnight Bliss scenario into a dedicated index o
 
 ## Download
 
-The pre-indexed BOTS v9 Midnight Bliss dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v9 Midnight Bliss dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v9 Midnight Bliss | Pre-indexed buckets, restored as `botsv9-midnight-main` | `.tgz` archive | [Download BOTS v9 Midnight Bliss dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-midnight-bliss.tgz) |
-| BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-qa.zip) |
+| BOTS v9 Midnight Bliss | Pre-indexed buckets, restored as `botsv9-midnight-main` | `.tgz` archive | [Download BOTS v9 Midnight Bliss dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv9/botsv9-midnight-bliss.tgz) |
+| BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv9/BOTSv9qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-midnight-bliss.tgz`. The archive is about 1.2 GB (about 1.9 GB extracted). Its SHA-256 checksum is `ef3e6bdeac5be27013e0ad445f22ad96d2f5eb5b590d79c14a33786492dfe4d5`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-midnight-bliss.tgz`. The archive is about 1.2 GB (about 1.9 GB extracted). Its SHA-256 checksum is `ef3e6bdeac5be27013e0ad445f22ad96d2f5eb5b590d79c14a33786492dfe4d5`.
 
 ## Index naming
 

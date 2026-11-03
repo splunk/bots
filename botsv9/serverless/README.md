@@ -6,14 +6,14 @@ This guide restores the BOTS v9 Serverless Surprise scenario into a dedicated in
 
 ## Download
 
-The pre-indexed BOTS v9 Serverless Surprise dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v9 Serverless Surprise dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v9 Serverless Surprise | Pre-indexed buckets, restored as `botsv9-serverless-main` | `.tgz` archive | [Download BOTS v9 Serverless Surprise dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-serverless-surprise.tgz) |
-| BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv9/botsv9-qa.zip) |
+| BOTS v9 Serverless Surprise | Pre-indexed buckets, restored as `botsv9-serverless-main` | `.tgz` archive | [Download BOTS v9 Serverless Surprise dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv9/botsv9-serverless-surprise.tgz) |
+| BOTS v9 Q&A | Questions and answers for all BOTS v9 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v9 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv9/BOTSv9qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-serverless-surprise.tgz`. The archive is about 30.4 GB (about 42 GB extracted). Its SHA-256 checksum is `e71112d70ddb95f15c48d57bd024bb8d2dd2219958af79301997dc9bf8057f9e`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv9-serverless-surprise.tgz`. The archive is about 30.4 GB (about 42 GB extracted). Its SHA-256 checksum is `e71112d70ddb95f15c48d57bd024bb8d2dd2219958af79301997dc9bf8057f9e`.
 
 ## Index naming
 

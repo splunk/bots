@@ -6,12 +6,12 @@ See the [BOTS v7 overview](../README.md) for the other scenarios, licensing, and
 
 ## Download
 
-Use the BOTS v6 APT archive for the data, and the BOTS v7 Q&A zip for the v7 questions. The v7 Q&A zip contains a separate `.xls` file for each v7 scenario, including new APT questions. The download URLs below are **placeholders** and must be updated before publication.
+Use the BOTS v6 APT archive for the data, and the BOTS v7 Q&A zip for the v7 questions. The v7 Q&A zip contains a separate `.xls` file for each v7 scenario, including new APT questions.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v6 APT | Pre-indexed buckets, the dataset used by the v7 APT scenario. See the [v6 APT guide](../../botsv6/apt/README.md) | `.tgz` archive | [Download BOTS v6 APT dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv6/botsv6-apt.tgz) |
-| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios, including the new APT questions. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv7/botsv7-qa.zip) |
+| BOTS v6 APT | Pre-indexed buckets, the dataset used by the v7 APT scenario. See the [v6 APT guide](../../botsv6/apt/README.md) | `.tgz` archive | [Download BOTS v6 APT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-apt.tgz) |
+| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios, including the new APT questions. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/BOTSv7qa.zip) |
 
 ## Restoring the dataset
 

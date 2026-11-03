@@ -16,11 +16,11 @@ Each scenario has its own README with download links, index definitions, and res
 
 ## Questions and answers
 
-The Q&A for all BOTS v7 scenarios is distributed as a single zip file containing a separate `.xls` file for each scenario. The download URL below is a **placeholder** and must be updated before publication.
+The Q&A for all BOTS v7 scenarios is distributed as a single zip file containing a separate `.xls` file for each scenario.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios | `.zip` archive | [Download BOTS v7 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv7/botsv7-qa.zip) |
+| BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios | `.zip` archive | [Download BOTS v7 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/BOTSv7qa.zip) |
 
 ## Index naming
 

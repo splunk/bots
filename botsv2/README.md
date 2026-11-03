@@ -3,12 +3,10 @@ A sample security dataset and CTF platform for information security professional
 
 ## Download
 
-The download URLs below are **placeholders** and must be updated before publication.
-
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v2 | Full BOTS v2 dataset (17.6GB compressed, SHA-256 `5f8141ef9bc91741f4f54da1a0a5d01c8fc91eab5a9d26f7ebe020900b3fa083`) | Pre-indexed Splunk `.tgz` | [Download BOTS v2 dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2.tgz) |
-| BOTS v2 Q&A | Questions and answers for the BOTS v2 exercise | `.zip` archive | [Download BOTS v2 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv2/botsv2-qa.zip) |
+| BOTS v2 | Full BOTS v2 dataset (17.6GB compressed, SHA-256 `5f8141ef9bc91741f4f54da1a0a5d01c8fc91eab5a9d26f7ebe020900b3fa083`) | Pre-indexed Splunk `.tgz` | [Download BOTS v2 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv2/botsv2.tgz) |
+| BOTS v2 Q&A | Questions and answers for the BOTS v2 exercise | `.zip` archive | [Download BOTS v2 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv2/botsv2qa.zip) |
 
 ## Restoring the dataset into a dedicated index
 

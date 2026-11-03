@@ -6,14 +6,14 @@ This guide restores the BOTS v5 K8S scenario into a dedicated index on Splunk En
 
 ## Download
 
-The pre-indexed BOTS v5 K8S dataset will be hosted in an Amazon S3 bucket. The download URLs below are **placeholders** and must be updated before publication.
+The pre-indexed BOTS v5 K8S dataset is hosted in an Amazon S3 bucket.
 
 | Dataset | Description | Format | Download |
 | --- | --- | --- | --- |
-| BOTS v5 K8S | Pre-indexed buckets, restored as `botsv5-k8s-main` | `.tgz` archive | [Download BOTS v5 K8S dataset (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-k8s.tgz) |
-| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A (placeholder)](https://YOUR-BUCKET.s3.amazonaws.com/botsv5/botsv5-qa.zip) |
+| BOTS v5 K8S | Pre-indexed buckets, restored as `botsv5-k8s-main` | `.tgz` archive | [Download BOTS v5 K8S dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/botsv5-k8s.tgz) |
+| BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/BOTSv5qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-k8s.tgz`. The archive is about 191 MB. Its SHA-256 checksum is `ebcdcbfe51a6ac6c44a94f8abf563146be70520c596039b83ec336c18d5ac59b`. The link should be finalized after uploading to S3.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-k8s.tgz`. The archive is about 191 MB. Its SHA-256 checksum is `ebcdcbfe51a6ac6c44a94f8abf563146be70520c596039b83ec336c18d5ac59b`.
 
 ## Index naming
 
