@@ -90,4 +90,13 @@ BOTS has been built and maintained by contributors across multiple releases. Bec
 
 ## Disclaimer
 
-These datasets are provided for educational and research purposes. See the documentation and license accompanying each release for applicable terms, limitations, and warranty disclaimers.
+**The BOTS datasets are provided "as is," without warranty of any kind, and are not supported.** No technical support, maintenance, updates, or service-level commitments are offered for any dataset, archive, or accompanying documentation, whether express or implied. Use of these materials is at your own risk. Refer to the license and terms accompanying each release for the full terms applicable to that dataset.
+
+Please note the following limitations when using these datasets:
+
+- **Out-of-date add-ons.** Many datasets were created with Splunk technical add-ons (TAs) and apps that were current at the time of release but have since been updated, replaced, or retired. Field extractions, CIM mappings, lookups, and dashboards that depend on those add-ons may behave differently with current versions, or may be unavailable.
+- **Display and parsing differences.** As a result, some events may not display, parse, or normalize correctly in current Splunk releases. Fields referenced in a challenge's questions or answers may be missing, renamed, or populated differently.
+- **Historical timestamps.** Events carry their original timestamps, so searches must use an all-time range (for example, `earliest=0`). Time-relative features, such as dashboards and detections that assume recent data, will not work as expected.
+- **Version compatibility.** Pre-indexed bucket compatibility with current Splunk Enterprise versions is not guaranteed. See [Installation and compatibility](#installation-and-compatibility).
+
+These datasets are intended for educational and research purposes. We recommend evaluating them in an isolated, non-production environment.
