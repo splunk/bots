@@ -58,7 +58,7 @@ The new name applies to the index **on the destination Splunk instance**. Do not
 ### Prerequisites
 
 - Splunk Enterprise 10.x on a supported Linux host, preferably an isolated test system.
-- Shell access, enough disk space for the extracted archive plus the index (the archive is 6.5GB compressed and about 8.6GB extracted), and a backup of the destination.
+- Shell access, enough disk space for the extracted archive plus the index (the archive is 6.5GB compressed and about 9.3GB extracted), and a backup of the destination.
 - The ability to stop Splunk before copying index buckets.
 - The add-ons listed for the original dataset are only needed for field extractions, not to search the raw events.
 
