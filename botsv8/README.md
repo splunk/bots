@@ -25,7 +25,7 @@ The pre-indexed BOTS v8 dataset is hosted in an Amazon S3 bucket.
 | BOTS v8 | Pre-indexed buckets shared by the APT, ESS, and WAA scenarios, restored as `botsv8-main`, `botsv8-battleship`, `botsv8-mc_aux_incidents`, `botsv8-notable`, `botsv8-risk` | `.tgz` archive | [Download BOTS v8 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv8/botsv8.tgz) |
 | BOTS v8 Q&A | Questions and answers for all BOTS v8 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v8 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv8/BOTSv8qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv8.tgz`. The archive is about 2.4 GB (about 3.5 GB extracted). Its SHA-256 checksum is `996508571793349744026154c957a1543091333798bff9bb1a0ea952ff56a1bf`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv8.tgz`. The archive is about 2.4 GB (about 3.8 GB extracted). Its SHA-256 checksum is `996508571793349744026154c957a1543091333798bff9bb1a0ea952ff56a1bf`.
 
 ## Index naming
 
@@ -33,11 +33,11 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv8-main` | `$SPLUNK_DB/botsv8-main/` | 3.5 GB | 5 |
-| `battleship/` | `botsv8-battleship` | `$SPLUNK_DB/botsv8-battleship/` | 3.3 MB | 6 |
-| `mc_aux_incidents/` | `botsv8-mc_aux_incidents` | `$SPLUNK_DB/botsv8-mc_aux_incidents/` | 1.6 MB | 3 |
-| `notabledb/` | `botsv8-notable` | `$SPLUNK_DB/botsv8-notable/` | 60 KB | 8 |
-| `riskdb/` | `botsv8-risk` | `$SPLUNK_DB/botsv8-risk/` | 30 KB | 3 |
+| `defaultdb/` | `botsv8-main` | `$SPLUNK_DB/botsv8-main/` | 3.8 GB | 5 |
+| `battleship/` | `botsv8-battleship` | `$SPLUNK_DB/botsv8-battleship/` | 3.4 MB | 6 |
+| `mc_aux_incidents/` | `botsv8-mc_aux_incidents` | `$SPLUNK_DB/botsv8-mc_aux_incidents/` | 1.7 MB | 3 |
+| `notabledb/` | `botsv8-notable` | `$SPLUNK_DB/botsv8-notable/` | 67 KB | 8 |
+| `riskdb/` | `botsv8-risk` | `$SPLUNK_DB/botsv8-risk/` | 37 KB | 3 |
 
 The `defaultdb/` archive directory is restored as `botsv8-main`, `notabledb/` as `botsv8-notable`, and `riskdb/` as `botsv8-risk`.
 
@@ -48,7 +48,7 @@ The archive's `datamodel_summary/` directories (under `battleship/`, `defaultdb/
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 3.5 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 3.8 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv8.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
