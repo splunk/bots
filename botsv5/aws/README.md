@@ -13,7 +13,7 @@ The pre-indexed BOTS v5 AWS dataset is hosted in an Amazon S3 bucket.
 | BOTS v5 AWS | Pre-indexed buckets, restored as `botsv5-aws-main`, `botsv5-aws-notable`, `botsv5-aws-risk` and six additional AWS indexes | `.tgz` archive | [Download BOTS v5 AWS dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/botsv5-aws.tgz) |
 | BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/BOTSv5qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The archive is about 42 MB. Its SHA-256 checksum is `4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-aws.tgz`. The archive is about 42 MB (about 86 MB extracted). Its SHA-256 checksum is `4454f684e67a0e64694847d5d5b584074f5bc4c8e92897839e6189ca41475d78`.
 
 ## Index naming
 
@@ -21,17 +21,19 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv5-aws-main` | `$SPLUNK_DB/botsv5-aws-main/` | 41 MB | 2 |
-| `notabledb/` | `botsv5-aws-notable` | `$SPLUNK_DB/botsv5-aws-notable/` | 320 KB | 5 |
-| `riskdb/` | `botsv5-aws-risk` | `$SPLUNK_DB/botsv5-aws-risk/` | 28 KB | 0 |
-| `aws_anomaly_detection/` | `botsv5-aws-anomaly_detection` | `$SPLUNK_DB/botsv5-aws-anomaly_detection/` | 36 KB | 0 |
-| `aws_topology_daily_snapshot/` | `botsv5-aws-topology_daily_snapshot` | `$SPLUNK_DB/botsv5-aws-topology_daily_snapshot/` | 55 MB | 209 |
-| `aws_topology_history/` | `botsv5-aws-topology_history` | `$SPLUNK_DB/botsv5-aws-topology_history/` | 3.4 MB | 210 |
-| `aws_topology_monthly_snapshot/` | `botsv5-aws-topology_monthly_snapshot` | `$SPLUNK_DB/botsv5-aws-topology_monthly_snapshot/` | 372 KB | 1 |
-| `aws_topology_playback/` | `botsv5-aws-topology_playback` | `$SPLUNK_DB/botsv5-aws-topology_playback/` | 1.7 MB | 9 |
+| `defaultdb/` | `botsv5-aws-main` | `$SPLUNK_DB/botsv5-aws-main/` | 42 MB | 2 |
+| `notabledb/` | `botsv5-aws-notable` | `$SPLUNK_DB/botsv5-aws-notable/` | 67 KB | 5 |
+| `riskdb/` | `botsv5-aws-risk` | `$SPLUNK_DB/botsv5-aws-risk/` | < 1 KB | 0 |
+| `aws_anomaly_detection/` | `botsv5-aws-anomaly_detection` | `$SPLUNK_DB/botsv5-aws-anomaly_detection/` | < 1 KB | 0 |
+| `aws_topology_daily_snapshot/` | `botsv5-aws-topology_daily_snapshot` | `$SPLUNK_DB/botsv5-aws-topology_daily_snapshot/` | 30 MB | 210 |
+| `aws_topology_history/` | `botsv5-aws-topology_history` | `$SPLUNK_DB/botsv5-aws-topology_history/` | 1.4 MB | 210 |
+| `aws_topology_monthly_snapshot/` | `botsv5-aws-topology_monthly_snapshot` | `$SPLUNK_DB/botsv5-aws-topology_monthly_snapshot/` | 208 KB | 1 |
+| `aws_topology_playback/` | `botsv5-aws-topology_playback` | `$SPLUNK_DB/botsv5-aws-topology_playback/` | 726 KB | 9 |
 | `aws_vpc_flow_logs/` | `botsv5-aws-vpc_flow_logs` | `$SPLUNK_DB/botsv5-aws-vpc_flow_logs/` | 11 MB | 9 |
 
 The `aws_` prefix is dropped from the six additional index names because `botsv5-aws-` already identifies the scenario.
+
+Sizes are the extracted file sizes of each archive directory. This dataset has many very small files, so actual disk usage will be higher.
 
 The original archive directory names are unchanged. The new names apply to the indexes **on the destination Splunk instance**. Do not rename bucket directories such as `db_<newest>_<oldest>_<id>`.
 
@@ -40,7 +42,7 @@ The archive also contains `summary/` and `datamodel_summary/` directories, which
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space, and a backup of the destination.
+- Shell access, sufficient disk space (about 86 MB for the extracted staging copy, plus the same again for the restored indexes, and more for the rebuilt frozen buckets), and a backup of the destination.
 - The recovery archive, named `botsv5-aws.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
@@ -58,7 +60,7 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 445 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 446 bucket directories (227 under `db/` and 219 under `frozendb/`). Of these, 445 hold a `rawdata/journal.gz` file. The other one (in `aws_topology_daily_snapshot`) is a small bucket whose raw data is stored as `rawdata/0` instead. It is a valid bucket and is restored with the rest. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
 
 ```bash
 shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
@@ -153,7 +155,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-aws-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-aws-stage
-sudo find /tmp/botsv5-aws-stage -name journal.gz -type f | wc -l   # expect 445
+sudo find /tmp/botsv5-aws-stage -type d -name 'db_*' | wc -l   # expect 446
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
