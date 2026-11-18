@@ -25,7 +25,7 @@ The new name applies to the index **on the destination Splunk instance**. Do not
 ### Prerequisites
 
 - Splunk Enterprise 10.x on a supported Linux host, preferably an isolated test system.
-- Shell access, enough disk space for the extracted archive (about 600 MB) plus the index, and a backup of the destination.
+- Shell access, enough disk space for the extracted archive (about 630 MB) plus the index, and a backup of the destination.
 - The ability to stop Splunk before copying index buckets.
 - The apps and add-ons listed in *Required Software* below are only needed for field extractions, not to search the raw events.
 
