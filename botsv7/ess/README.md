@@ -13,7 +13,7 @@ The pre-indexed BOTS v7 ESS dataset is hosted in an Amazon S3 bucket.
 | BOTS v7 ESS | Pre-indexed buckets, restored as `botsv7-ess-main`, `botsv7-ess-notable`, `botsv7-ess-risk` | `.tgz` archive | [Download BOTS v7 ESS dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/botsv7-ess.tgz) |
 | BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/BOTSv7qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-ess.tgz`. The archive is about 1.7 GB (about 2.2 GB extracted). Its SHA-256 checksum is `1949621382e0fbbdf5cd12c13baa531bbd5f148ad07153af9dac76f4269b52e5`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-ess.tgz`. The archive is about 1.7 GB (about 2.3 GB extracted). Its SHA-256 checksum is `1949621382e0fbbdf5cd12c13baa531bbd5f148ad07153af9dac76f4269b52e5`.
 
 ## Index naming
 
@@ -21,9 +21,9 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv7-ess-main` | `$SPLUNK_DB/botsv7-ess-main/` | 2.2 GB | 3 |
-| `notabledb/` | `botsv7-ess-notable` | `$SPLUNK_DB/botsv7-ess-notable/` | 20 KB | 1 |
-| `riskdb/` | `botsv7-ess-risk` | `$SPLUNK_DB/botsv7-ess-risk/` | 30 KB | 1 |
+| `defaultdb/` | `botsv7-ess-main` | `$SPLUNK_DB/botsv7-ess-main/` | 2.3 GB | 3 |
+| `notabledb/` | `botsv7-ess-notable` | `$SPLUNK_DB/botsv7-ess-notable/` | 22 KB | 1 |
+| `riskdb/` | `botsv7-ess-risk` | `$SPLUNK_DB/botsv7-ess-risk/` | 31 KB | 1 |
 
 The `defaultdb/` archive directory is restored as `botsv7-ess-main`, `notabledb/` as `botsv7-ess-notable`, and `riskdb/` as `botsv7-ess-risk`.
 
@@ -34,7 +34,7 @@ The archive's `datamodel_summary/` and `summary/` directories (under `defaultdb/
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 2.2 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 2.3 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv7-ess.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 

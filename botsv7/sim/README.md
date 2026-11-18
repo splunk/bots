@@ -13,7 +13,7 @@ The pre-indexed BOTS v7 SIM dataset is hosted in an Amazon S3 bucket.
 | BOTS v7 SIM | Pre-indexed buckets, restored as `botsv7-sim-main`, `botsv7-sim-em_metrics` | `.tgz` archive | [Download BOTS v7 SIM dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/botsv7-sim.tgz) |
 | BOTS v7 Q&A | Questions and answers for all BOTS v7 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v7 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv7/BOTSv7qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-sim.tgz`. The archive is about 6.3 GB (about 12.9 GB extracted). Its SHA-256 checksum is `5fea4f79da6dcfc7cbc251cd1b2f8a9214e6a1e0874f3b6deae7c600430d6dee`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv7-sim.tgz`. The archive is about 6.3 GB (about 13.9 GB extracted). Its SHA-256 checksum is `5fea4f79da6dcfc7cbc251cd1b2f8a9214e6a1e0874f3b6deae7c600430d6dee`.
 
 ## Index naming
 
@@ -21,8 +21,8 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv7-sim-main` | `$SPLUNK_DB/botsv7-sim-main/` | 12.6 GB | 15 |
-| `em_metrics/` | `botsv7-sim-em_metrics` | `$SPLUNK_DB/botsv7-sim-em_metrics/` | 363 MB | 6 |
+| `defaultdb/` | `botsv7-sim-main` | `$SPLUNK_DB/botsv7-sim-main/` | 13.5 GB | 15 |
+| `em_metrics/` | `botsv7-sim-em_metrics` | `$SPLUNK_DB/botsv7-sim-em_metrics/` | 380 MB | 6 |
 
 The `defaultdb/` archive directory is restored as `botsv7-sim-main`. The `em_metrics/` directory holds a **metrics** index, so its stanza sets `datatype = metric`. The archive has no notable or risk indexes.
 
@@ -33,7 +33,7 @@ The archive's `datamodel_summary/` directories (under `defaultdb/` and `em_metri
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 12.9 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 13.9 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv7-sim.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
