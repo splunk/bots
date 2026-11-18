@@ -13,7 +13,7 @@ The pre-indexed BOTS v4 dataset is hosted in an Amazon S3 bucket.
 | BOTS v4 | Original `main`, `notable`, and `risk` index buckets, restored as `botsv4-main`, `botsv4-notable`, and `botsv4-risk` | `.tgz` archive | [Download BOTS v4 dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv4/botsv4.tgz) |
 | BOTS v4 Q&A | Questions and answers for the BOTS v4 exercise | `.zip` archive | [Download BOTS v4 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv4/BOTSv4qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4.tgz`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv4.tgz`. The archive is about 968 MB (about 1.7 GB extracted). Its SHA-256 checksum is `304ad8418d88d39386df363d2abd3437b24771b89487cffc43aecf48f02ceef6`.
 
 ## Index naming
 
@@ -52,7 +52,12 @@ tar -tzf "$ARCHIVE" | head -40
 tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
 ```
 
-These instructions expect archive paths like `botsv4/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. If the archive has a different layout, adjust the staging paths accordingly. Verify a published SHA-256 checksum if one is provided; none is specified here.
+These instructions expect archive paths like `botsv4/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`. If the archive has a different layout, adjust the staging paths accordingly. The archive should contain 41 bucket directories (7, 18, and 16). Verify the SHA-256 checksum:
+
+```bash
+shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
+# expected: 304ad8418d88d39386df363d2abd3437b24771b89487cffc43aecf48f02ceef6
+```
 
 ## 2. Configure dedicated indexes
 
