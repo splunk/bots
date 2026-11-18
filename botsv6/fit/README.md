@@ -13,7 +13,7 @@ The pre-indexed BOTS v6 FIT dataset is hosted in an Amazon S3 bucket.
 | BOTS v6 FIT | Pre-indexed buckets, restored as `botsv6-fit-main`, `botsv6-fit-audit`, `botsv6-fit-dtex`, `botsv6-fit-frothly_events`, `botsv6-fit-notable`, `botsv6-fit-risk`, `botsv6-fit-ueba` | `.tgz` archive | [Download BOTS v6 FIT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-fit.tgz) |
 | BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/BOTSv6qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-fit.tgz`. The archive is about 2.1 GB (about 3.8 GB extracted). Its SHA-256 checksum is `328d524e240ba464b5c7e511c22e2ae756db2ab5a23f0d73a62b26f62eba29ae`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-fit.tgz`. The archive is about 2.1 GB (about 4.1 GB extracted). Its SHA-256 checksum is `328d524e240ba464b5c7e511c22e2ae756db2ab5a23f0d73a62b26f62eba29ae`.
 
 ## Index naming
 
@@ -21,13 +21,13 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv6-fit-main` | `$SPLUNK_DB/botsv6-fit-main/` | 2.6 GB | 5 |
-| `audit/` | `botsv6-fit-audit` | `$SPLUNK_DB/botsv6-fit-audit/` | 1.2 GB | 79 |
-| `dtex/` | `botsv6-fit-dtex` | `$SPLUNK_DB/botsv6-fit-dtex/` | 20 MB | 2 |
+| `defaultdb/` | `botsv6-fit-main` | `$SPLUNK_DB/botsv6-fit-main/` | 2.8 GB | 5 |
+| `audit/` | `botsv6-fit-audit` | `$SPLUNK_DB/botsv6-fit-audit/` | 1.3 GB | 79 |
+| `dtex/` | `botsv6-fit-dtex` | `$SPLUNK_DB/botsv6-fit-dtex/` | 21 MB | 2 |
 | `frothly_events/` | `botsv6-fit-frothly_events` | `$SPLUNK_DB/botsv6-fit-frothly_events/` | 0.7 MB | 1 |
-| `oldnotabledb/` | `botsv6-fit-notable` | `$SPLUNK_DB/botsv6-fit-notable/` | 160 KB | 3 |
-| `oldriskdb/` | `botsv6-fit-risk` | `$SPLUNK_DB/botsv6-fit-risk/` | 280 KB | 5 |
-| `uebadb/` | `botsv6-fit-ueba` | `$SPLUNK_DB/botsv6-fit-ueba/` | 30 KB | 5 |
+| `oldnotabledb/` | `botsv6-fit-notable` | `$SPLUNK_DB/botsv6-fit-notable/` | 167 KB | 3 |
+| `oldriskdb/` | `botsv6-fit-risk` | `$SPLUNK_DB/botsv6-fit-risk/` | 284 KB | 5 |
+| `uebadb/` | `botsv6-fit-ueba` | `$SPLUNK_DB/botsv6-fit-ueba/` | 27 KB | 5 |
 
 The `defaultdb/` archive directory is restored as `botsv6-fit-main`. The `old` prefix is dropped from `oldnotabledb/` and `oldriskdb/`, and the `db` suffix from `uebadb/`, so they are restored as `botsv6-fit-notable`, `botsv6-fit-risk`, and `botsv6-fit-ueba`.
 
@@ -38,7 +38,7 @@ The archive's `datamodel_summary/` directories (under `audit/`, `defaultdb/`, `d
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 3.8 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 4.1 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv6-fit.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
