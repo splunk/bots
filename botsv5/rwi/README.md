@@ -13,7 +13,7 @@ The pre-indexed BOTS v5 RWI dataset is hosted in an Amazon S3 bucket.
 | BOTS v5 RWI | Pre-indexed buckets, restored as `botsv5-rwi-main` | `.tgz` archive | [Download BOTS v5 RWI dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/botsv5-rwi.tgz) |
 | BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/BOTSv5qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-rwi.tgz`. The archive is about 1.7 GB (about 2.7 GB extracted). Its SHA-256 checksum is `bc27c1a3093994757e34a982be686e2c4cd73a1266e3a842c09d24311d97cd11`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-rwi.tgz`. The archive is about 1.7 GB (about 2.9 GB extracted). Its SHA-256 checksum is `bc27c1a3093994757e34a982be686e2c4cd73a1266e3a842c09d24311d97cd11`.
 
 ## Index naming
 
@@ -32,7 +32,7 @@ The archive's `datamodel_summary/` directory contains acceleration summaries and
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space, and a backup of the destination.
+- Shell access, sufficient disk space (about 2.9 GB for the extracted staging copy, plus the same again for the restored index), and a backup of the destination.
 - The recovery archive, named `botsv5-rwi.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
