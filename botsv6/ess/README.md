@@ -13,7 +13,7 @@ The pre-indexed BOTS v6 ESS dataset is hosted in an Amazon S3 bucket.
 | BOTS v6 ESS | Pre-indexed buckets, restored as `botsv6-ess-apt`, `botsv6-ess-apt_dtex`, `botsv6-ess-frothly_events`, `botsv6-ess-insider`, `botsv6-ess-notable`, `botsv6-ess-risk`, `botsv6-ess-toads` | `.tgz` archive | [Download BOTS v6 ESS dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-ess.tgz) |
 | BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/BOTSv6qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-ess.tgz`. The archive is about 6.1 GB (about 10.6 GB extracted). Its SHA-256 checksum is `9d70218d2681e8a3fb4b4949e4ff707fe9baa92225e4f82584b94bc82e85c742`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-ess.tgz`. The archive is about 6.1 GB (about 11.4 GB extracted). Its SHA-256 checksum is `9d70218d2681e8a3fb4b4949e4ff707fe9baa92225e4f82584b94bc82e85c742`.
 
 ## Index naming
 
@@ -21,13 +21,13 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `apt/` | `botsv6-ess-apt` | `$SPLUNK_DB/botsv6-ess-apt/` | 2.4 GB | 5 |
-| `apt_dtex/` | `botsv6-ess-apt_dtex` | `$SPLUNK_DB/botsv6-ess-apt_dtex/` | 41 MB | 4 |
+| `apt/` | `botsv6-ess-apt` | `$SPLUNK_DB/botsv6-ess-apt/` | 2.5 GB | 5 |
+| `apt_dtex/` | `botsv6-ess-apt_dtex` | `$SPLUNK_DB/botsv6-ess-apt_dtex/` | 43 MB | 4 |
 | `frothly_events/` | `botsv6-ess-frothly_events` | `$SPLUNK_DB/botsv6-ess-frothly_events/` | 0.2 MB | 1 |
-| `insider/` | `botsv6-ess-insider` | `$SPLUNK_DB/botsv6-ess-insider/` | 2.3 GB | 1 |
+| `insider/` | `botsv6-ess-insider` | `$SPLUNK_DB/botsv6-ess-insider/` | 2.5 GB | 1 |
 | `notabledb/` | `botsv6-ess-notable` | `$SPLUNK_DB/botsv6-ess-notable/` | 0.3 MB | 13 |
 | `riskdb/` | `botsv6-ess-risk` | `$SPLUNK_DB/botsv6-ess-risk/` | 0.4 MB | 10 |
-| `toads/` | `botsv6-ess-toads` | `$SPLUNK_DB/botsv6-ess-toads/` | 5.9 GB | 1 |
+| `toads/` | `botsv6-ess-toads` | `$SPLUNK_DB/botsv6-ess-toads/` | 6.4 GB | 1 |
 
 The `notabledb/` and `riskdb/` archive directories are restored as `botsv6-ess-notable` and `botsv6-ess-risk`. The archive does not contain a `defaultdb/` (`main`) index.
 
@@ -38,7 +38,7 @@ The archive's `datamodel_summary/` directories (under `apt/`, `apt_dtex/`, `frot
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 10.6 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 11.4 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv6-ess.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
