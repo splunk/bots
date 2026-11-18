@@ -13,7 +13,7 @@ The pre-indexed BOTS v5 APT dataset is hosted in an Amazon S3 bucket.
 | BOTS v5 APT | Pre-indexed buckets, restored as `botsv5-apt-main`, `botsv5-apt-notable`, `botsv5-apt-risk` | `.tgz` archive | [Download BOTS v5 APT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/botsv5-apt.tgz) |
 | BOTS v5 Q&A | Questions and answers for all BOTS v5 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v5 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv5/BOTSv5qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-apt.tgz`. The archive is about 974 MB. Its SHA-256 checksum is `2ef05ceea74edc4de21a7ead0ad816187d541629474306186f55c603dec19b12`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv5-apt.tgz`. The archive is about 974 MB (about 1.6 GB extracted). Its SHA-256 checksum is `2ef05ceea74edc4de21a7ead0ad816187d541629474306186f55c603dec19b12`.
 
 ## Index naming
 
@@ -21,7 +21,7 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Buckets |
 | --- | --- | --- | ---: |
-| `defaultdb/` | `botsv5-apt-main` | `$SPLUNK_DB/botsv5-apt-main/` | 13 |
+| `defaultdb/` | `botsv5-apt-main` | `$SPLUNK_DB/botsv5-apt-main/` | 14 |
 | `notabledb/` | `botsv5-apt-notable` | `$SPLUNK_DB/botsv5-apt-notable/` | 3 |
 | `riskdb/` | `botsv5-apt-risk` | `$SPLUNK_DB/botsv5-apt-risk/` | 2 |
 
@@ -32,7 +32,7 @@ The archive's `datamodel_summary/` directory is not imported by this procedure.
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space, and a backup of the destination.
+- Shell access, sufficient disk space (about 1.6 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv5-apt.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
@@ -47,10 +47,10 @@ export ARCHIVE=/tmp/botsv5-apt.tgz
 
 gzip -t "$ARCHIVE"
 tar -tzf "$ARCHIVE" | head -40
-tar -tzf "$ARCHIVE" | grep '/rawdata/journal.gz$'
+tar -tzf "$ARCHIVE" | grep -E '^[^/]+/db/db_[^/]+/$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 18 `journal.gz` files. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+These instructions expect archive paths like `defaultdb/db/db_...`, `notabledb/db/db_...`, and `riskdb/db/db_...`; the archive should contain 19 bucket directories. Of these, 18 hold a `rawdata/journal.gz` file. The other one (in `defaultdb`) is a small bucket whose raw data is stored as `rawdata/0` instead. It is a valid bucket and is restored with the rest. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
 
 ```bash
 shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
@@ -103,7 +103,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv5-apt-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv5-apt-stage
-sudo find /tmp/botsv5-apt-stage -name journal.gz -type f | wc -l   # expect 18
+sudo find /tmp/botsv5-apt-stage -type d -name 'db_*' | wc -l   # expect 19
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
