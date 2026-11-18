@@ -13,7 +13,7 @@ The pre-indexed BOTS v6 MCT dataset is hosted in an Amazon S3 bucket.
 | BOTS v6 MCT | Pre-indexed buckets, restored as `botsv6-mct-main` | `.tgz` archive | [Download BOTS v6 MCT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-mct.tgz) |
 | BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/BOTSv6qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-mct.tgz`. The archive is about 3.1 GB (about 5.0 GB extracted). Its SHA-256 checksum is `343b492a72abf370dbcd969e63cc2531bc7116c4e39dc1a2d77cf2e0127cc1df`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-mct.tgz`. The archive is about 3.1 GB (about 5.4 GB extracted). Its SHA-256 checksum is `343b492a72abf370dbcd969e63cc2531bc7116c4e39dc1a2d77cf2e0127cc1df`.
 
 ## Index naming
 
@@ -21,7 +21,7 @@ This restoration intentionally uses a new logical index name to avoid interferin
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv6-mct-main` | `$SPLUNK_DB/botsv6-mct-main/` | 5.0 GB | 1 |
+| `defaultdb/` | `botsv6-mct-main` | `$SPLUNK_DB/botsv6-mct-main/` | 5.4 GB | 1 |
 
 The archive contains only the `defaultdb` index. There are no notable, risk, or additional indexes for this scenario.
 
@@ -32,7 +32,7 @@ The archive's `datamodel_summary/` directory contains acceleration summaries and
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 5.0 GB for the extracted staging copy, plus the same again for the restored index), and a backup of the destination.
+- Shell access, sufficient disk space (about 5.4 GB for the extracted staging copy, plus the same again for the restored index), and a backup of the destination.
 - The recovery archive, named `botsv6-mct.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 
