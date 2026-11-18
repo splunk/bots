@@ -13,7 +13,7 @@ The pre-indexed BOTS v6 APT dataset is hosted in an Amazon S3 bucket.
 | BOTS v6 APT | Pre-indexed buckets, restored as `botsv6-apt-main`, `botsv6-apt-dtex`, `botsv6-apt-notable` | `.tgz` archive | [Download BOTS v6 APT dataset](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/botsv6-apt.tgz) |
 | BOTS v6 Q&A | Questions and answers for all BOTS v6 scenarios. The zip contains a separate `.xls` file for each scenario | `.zip` archive | [Download BOTS v6 Q&A](https://splunk-bots-datasets.s3.amazonaws.com/BOTSv6/BOTSv6qa.zip) |
 
-Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-apt.tgz`. The archive is about 1.9 GB (about 3.1 GB extracted). Its SHA-256 checksum is `13ec2103e11939485a32904bcf3ed826872e27e39abab003eb434d3976b53c2d`.
+Download the archive to your Splunk server before following the installation steps. The examples below expect it at `/tmp/botsv6-apt.tgz`. The archive is about 1.9 GB (about 3.3 GB extracted). Its SHA-256 checksum is `13ec2103e11939485a32904bcf3ed826872e27e39abab003eb434d3976b53c2d`.
 
 ## Index naming
 
@@ -21,9 +21,9 @@ This restoration intentionally uses new logical index names to avoid interfering
 
 | Archive directory | Restored logical index | Destination directory | Size | Buckets |
 | --- | --- | --- | ---: | ---: |
-| `defaultdb/` | `botsv6-apt-main` | `$SPLUNK_DB/botsv6-apt-main/` | 3.0 GB | 5 |
-| `dtex/` | `botsv6-apt-dtex` | `$SPLUNK_DB/botsv6-apt-dtex/` | 47 MB | 4 |
-| `notabledb/` | `botsv6-apt-notable` | `$SPLUNK_DB/botsv6-apt-notable/` | 40 KB | 3 |
+| `defaultdb/` | `botsv6-apt-main` | `$SPLUNK_DB/botsv6-apt-main/` | 3.2 GB | 5 |
+| `dtex/` | `botsv6-apt-dtex` | `$SPLUNK_DB/botsv6-apt-dtex/` | 49 MB | 4 |
+| `notabledb/` | `botsv6-apt-notable` | `$SPLUNK_DB/botsv6-apt-notable/` | 37 KB | 3 |
 
 The `defaultdb/` archive directory is restored as `botsv6-apt-main`, and `notabledb/` as `botsv6-apt-notable`. There is no risk index for this scenario.
 
@@ -34,7 +34,7 @@ The archive's `datamodel_summary/` directories (under `defaultdb/` and `dtex/`) 
 ## Prerequisites
 
 - Splunk Enterprise 10.x installed on a supported Linux host, preferably an isolated test system.
-- Shell access, sufficient disk space (about 3.1 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
+- Shell access, sufficient disk space (about 3.3 GB for the extracted staging copy, plus the same again for the restored indexes), and a backup of the destination.
 - The recovery archive, named `botsv6-apt.tgz` in these examples.
 - The ability to stop Splunk before copying index buckets.
 

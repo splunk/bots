@@ -53,10 +53,10 @@ export ARCHIVE=/tmp/botsv6-fit.tgz
 
 gzip -t "$ARCHIVE"
 tar -tzf "$ARCHIVE" | head -40
-tar -tzf "$ARCHIVE" | grep -E '^[^/]+/db/db_[^/]+/$'
+tar -tzf "$ARCHIVE" | grep -E '^[^/]+/db/(db|hot_v[0-9]+)_[^/]+/$'
 ```
 
-These instructions expect archive paths like `defaultdb/db/db_...`, `audit/db/db_...`, `dtex/db/db_...`, `frothly_events/db/db_...`, `oldnotabledb/db/db_...`, `oldriskdb/db/db_...`, and `uebadb/db/db_...`. The archive should contain 100 bucket directories. Of these, 96 hold a `rawdata/journal.gz` file. The other 4 (one under `oldnotabledb`, two under `oldriskdb`, and one under `uebadb`) are small buckets whose raw data is stored as `rawdata/0` instead. They are valid buckets and are restored with the rest. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
+These instructions expect archive paths like `defaultdb/db/db_...`, `audit/db/db_...`, `dtex/db/db_...`, `frothly_events/db/db_...`, `oldnotabledb/db/db_...`, `oldriskdb/db/db_...`, and `uebadb/db/db_...`. The archive should contain 100 bucket directories (one in `audit` is named `hot_v1_78` rather than `db_...`). Of these, 96 hold a `rawdata/journal.gz` file. The other 4 (one under `oldnotabledb`, two under `oldriskdb`, and one under `uebadb`) are small buckets whose raw data is stored as `rawdata/0` instead. They are valid buckets and are restored with the rest. If the layout differs, adjust the staging paths accordingly. Verify the SHA-256 checksum:
 
 ```bash
 shasum -a 256 "$ARCHIVE"   # or: sha256sum "$ARCHIVE"
@@ -137,7 +137,7 @@ ps -ef | grep '[s]plunkd'
 
 sudo mkdir -p /tmp/botsv6-fit-stage
 sudo tar -xzf "$ARCHIVE" -C /tmp/botsv6-fit-stage
-sudo find /tmp/botsv6-fit-stage -type d -name 'db_*' | wc -l   # expect 100
+sudo find /tmp/botsv6-fit-stage -type d \( -name 'db_*' -o -name 'hot_v*' \) | wc -l   # expect 100
 ```
 
 Do not extract directly over an existing index. Ensure Splunk is fully stopped before importing buckets.
