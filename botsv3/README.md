@@ -304,3 +304,4 @@ Written in 2018 by Ryan Kovar, David Herrald, James Brodsky, John Stoner, Jim Ap
 
 Licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file in this directory and the repository [NOTICE](../NOTICE) for details. Unless required by applicable law or agreed to in writing, this software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
+Earlier releases of this version were distributed under the CC0 1.0 Universal Public Domain Dedication. That dedication continues to apply to any copies obtained under it before this relicensing; this Apache License 2.0 applies going forward.
