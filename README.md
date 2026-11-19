@@ -4,6 +4,10 @@ Boss of the SOC (BOTS) is a hands-on cybersecurity investigation challenge creat
 
 BOTS brings together security telemetry from multiple technologies and environments into a single investigative experience. The challenges are designed to develop practical threat-hunting, incident-response, and security-analysis skills, whether you are learning Splunk, teaching a class, researching detection techniques, or practicing in a SOC.
 
+> ### 🔒 Coming soon: dataset downloads
+>
+> The BOTS datasets are currently locked while we put the finishing touches on this repository. Download links and restore guides are being staged and will be released in the near future. Thank you for your patience. Check back soon, and happy hunting!
+
 ## About this repository
 
 This repository is the home for the publicly available BOTS datasets and their documentation. Its goal is to make historical BOTS data accessible for education, research, training, and independent investigation.
