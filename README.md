@@ -6,7 +6,7 @@ BOTS brings together security telemetry from multiple technologies and environme
 
 > ### 🔒 Coming soon: dataset downloads
 >
-> The BOTS datasets are currently locked while we put the finishing touches on this repository. Download links and restore guides are being staged and will be released in the near future. Thank you for your patience. Check back soon, and happy hunting!
+> The BOTS datasets are not yet available for download. We are preparing an official release so these datasets arrive with the context, guidance, and support they deserve. Until then, downloads remain locked and the links on the version pages will not resolve. Please check back soon, and happy hunting!
 
 ## About this repository
 
